@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Vremenska prognoza</string>
+
+    <string name="format_temp">Izaberi format temperature</string>
+
+    <string-array name="formati">
+        <item>Celzijus</item>
+        <item>Farenhajt</item>
+    </string-array>
+</resources>
