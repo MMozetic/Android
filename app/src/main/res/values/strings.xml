@@ -3,7 +3,7 @@
 
     <string name="format_temp">Izaberi format temperature</string>
 
-    <string-array name="formati">
+    <string-array name="formats">
         <item>Celzijus</item>
         <item>Farenhajt</item>
     </string-array>

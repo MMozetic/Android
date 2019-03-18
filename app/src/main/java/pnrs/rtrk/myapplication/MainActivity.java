@@ -9,26 +9,26 @@ import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity implements  View.OnClickListener{
 
-    Button button1;
-    EditText grad;
+    Button showDetails;
+    EditText town;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        button1 = findViewById(R.id.prikazi);
-        button1.setOnClickListener(this);
-        grad = findViewById(R.id.unos_grada);
+        showDetails = findViewById(R.id.showDetails);
+        showDetails.setOnClickListener(this);
+        town = findViewById(R.id.enterTown);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.prikazi:
-                Intent prelaz = new Intent(this, DetailsActivity.class);
-                prelaz.putExtra("grad", grad.getText());
-                startActivity(prelaz);
+            case R.id.showDetails:
+                Intent switchActivity = new Intent(this, DetailsActivity.class);
+                switchActivity.putExtra("town", town.getText());
+                startActivity(switchActivity);
                 break;
             default:
                 break;
