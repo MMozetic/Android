@@ -14,8 +14,7 @@ import java.util.Locale;
 public class DetailsActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Button tempButton, sunButton, windButton;
-    private LinearLayout temp_layout;
-    private TextView sunView, windView;
+    private LinearLayout tempLayout, sunLayout, windLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,18 +30,18 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
 
         tempButton = findViewById(R.id.temperatureButton);
         tempButton.setOnClickListener(this);
-        temp_layout = findViewById(R.id.temp_layout);
-        temp_layout.setVisibility(View.INVISIBLE);
+        tempLayout = findViewById(R.id.tempData);
+        tempLayout.setVisibility(View.INVISIBLE);
 
         sunButton = findViewById(R.id.sunButton);
         sunButton.setOnClickListener(this);
-        sunView = findViewById(R.id.sunData);
-        sunView.setVisibility(View.INVISIBLE);
+        sunLayout = findViewById(R.id.sunData);
+        sunLayout.setVisibility(View.INVISIBLE);
 
         windButton = findViewById(R.id.windButton);
         windButton.setOnClickListener(this);
-        windView = findViewById(R.id.windData);
-        windView.setVisibility(View.INVISIBLE);
+        windLayout = findViewById(R.id.windData);
+        windLayout.setVisibility(View.INVISIBLE);
 
     }
 
@@ -50,21 +49,21 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.temperatureButton:
-                sunView.setVisibility(View.INVISIBLE);
-                temp_layout.setVisibility(View.VISIBLE);
-                windView.setVisibility(View.INVISIBLE);
+                sunLayout.setVisibility(View.INVISIBLE);
+                tempLayout.setVisibility(View.VISIBLE);
+                windLayout.setVisibility(View.INVISIBLE);
                 break;
 
             case R.id.sunButton:
-                sunView.setVisibility(View.VISIBLE);
-                temp_layout.setVisibility(View.INVISIBLE);
-                windView.setVisibility(View.INVISIBLE);
+                sunLayout.setVisibility(View.VISIBLE);
+                tempLayout.setVisibility(View.INVISIBLE);
+                windLayout.setVisibility(View.INVISIBLE);
                 break;
 
             case R.id.windButton:
-                sunView.setVisibility(View.INVISIBLE);
-                temp_layout.setVisibility(View.INVISIBLE);
-                windView.setVisibility(View.VISIBLE);
+                sunLayout.setVisibility(View.INVISIBLE);
+                tempLayout.setVisibility(View.INVISIBLE);
+                windLayout.setVisibility(View.VISIBLE);
                 break;
         }
     }

@@ -16,19 +16,21 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:text="Lokacija: "
             android:fontFamily="sans-serif-black"
-            android:textSize="20dp"/>
+            android:gravity="center|center"
+            android:textSize="@dimen/myFontSize"/>
 
         <TextView
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="2"
             android:layout_height="match_parent"
-            android:textSize="20dp"
+            android:textSize="@dimen/myFontSize"
             android:fontFamily="sans-serif-black"
+            android:gravity="center|left"
             android:id="@+id/town"/>
 
     </LinearLayout>
@@ -40,18 +42,20 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:text="Dan: "
             android:fontFamily="sans-serif-black"
-            android:textSize="20dp"/>
+            android:gravity="center|center"
+            android:textSize="@dimen/myFontSize"/>
 
         <TextView
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="2"
             android:layout_height="match_parent"
-            android:textSize="20dp"
+            android:textSize="@dimen/myFontSize"
+            android:gravity="center|left"
             android:fontFamily="sans-serif-black"
             android:id="@+id/day"/>
 
@@ -68,7 +72,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Temperatura"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="sans-serif-black"
             android:id="@+id/temperatureButton"/>
 
         <Button
@@ -76,7 +80,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Izlazak i zalazak sunca"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="sans-serif-black"
             android:id="@+id/sunButton"/>
 
         <Button
@@ -84,7 +88,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Vetar"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="sans-serif-black"
             android:id="@+id/windButton"/>
 
     </LinearLayout>
@@ -93,11 +97,12 @@
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="5">
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:id="@+id/temp_layout">
+            android:id="@+id/tempData">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -115,16 +120,27 @@
                     android:id="@+id/sunImage"
                     android:background="@drawable/sun"/>
 
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:fontFamily="sans-serif-medium"
+                    android:layout_gravity="center"
+                    android:gravity="right"
+                    android:textSize="@dimen/myFontSize"
+                    android:text="Formati:  "
+                    />
+
                 <Spinner
                     android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_weight="0.5"
                     android:id="@+id/list"
                     android:layout_height="wrap_content"
-                    android:prompt="@string/format_temp"
                     android:entries="@array/formats"
-                    android:layout_gravity="center">
+                    android:layout_gravity="center"
+                    android:spinnerMode="dropdown">
                 </Spinner>
-                
+
             </LinearLayout>
 
             <TextView
@@ -135,24 +151,107 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_weight="0.3"
                 android:fontFamily="sans-serif-medium"
-                android:text="Temperatura: 11\nPritisak: 100\nVlažnost vazduha: 44"/>
+                android:textSize="@dimen/myFontSize"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Temperatura: 11"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.3"
+                android:fontFamily="sans-serif-medium"
+                android:textSize="@dimen/myFontSize"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Pritisak: 100"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.3"
+                android:fontFamily="sans-serif-medium"
+                android:textSize="@dimen/myFontSize"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Vlažnost vazduha: 44"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.3"/>
+
         </LinearLayout>
 
-        <TextView
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:id="@+id/sunData"
             android:fontFamily="sans-serif-medium"
-            android:text="Izlazak Sunca: 06:47\nZalazak Sunca: 17:45"/>
+            android:textSize="@dimen/myFontSize"
+            android:orientation="vertical">
 
-        <TextView
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="10"
+                android:id="@+id/sunRise"
+                android:fontFamily="sans-serif-medium"
+                android:textSize="@dimen/myFontSize"
+                android:gravity="center|bottom"
+                android:text="Izlazak Sunca: 06:47"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="10"
+                android:id="@+id/sunSet"
+                android:fontFamily="sans-serif-medium"
+                android:textSize="@dimen/myFontSize"
+                android:gravity="center|top"
+                android:text="Zalazak Sunca: 17:45"/>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:id="@+id/windData"
             android:fontFamily="sans-serif-medium"
-            android:text="Brzina vetra: 4.1\nPravac: N"/>
+            android:textSize="@dimen/myFontSize"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="10"
+                android:id="@+id/windSpeed"
+                android:fontFamily="sans-serif-medium"
+                android:textSize="@dimen/myFontSize"
+                android:gravity="center|bottom"
+                android:text="Brzina vetra: 4.1"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="10"
+                android:id="@+id/windDir"
+                android:fontFamily="sans-serif-medium"
+                android:textSize="@dimen/myFontSize"
+                android:gravity="center|top"
+                android:text="Pravac: N"/>
+
+        </LinearLayout>
 
     </FrameLayout>
 

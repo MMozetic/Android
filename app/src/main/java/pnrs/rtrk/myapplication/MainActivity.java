@@ -9,8 +9,8 @@ import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity implements  View.OnClickListener{
 
-    Button showDetails;
-    EditText town;
+    private Button showDetails;
+    private EditText town;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
