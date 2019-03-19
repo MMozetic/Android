@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="myFontSize">20dp</dimen>
+    <dimen name="myFontSize">20sp</dimen>
+    <dimen name="fontSize">30sp</dimen>
+    <dimen name="buttonText">13sp</dimen>
+    <dimen name="marginTop">15sp</dimen>
 </resources>

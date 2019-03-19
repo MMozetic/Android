@@ -13,17 +13,17 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="Vremenska prognoza"
-        android:textSize="30dp"
-        android:fontFamily="sans-serif-black"/>
+        android:text="@string/forecastName"
+        android:textSize="@dimen/fontSize"
+        android:fontFamily="@string/fontButton"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.2"
         android:gravity="center"
-        android:text="Unesite željeni grad:"
-        android:fontFamily="sans-serif-medium"
+        android:text="@string/enterCity"
+        android:fontFamily="@string/fontText"
         android:textSize="@dimen/myFontSize"/>
 
 
@@ -67,8 +67,9 @@
           android:layout_width="0dp"
           android:layout_weight="2"
           android:layout_height="wrap_content"
-          android:text="Prikaži"
-          android:fontFamily="sans-serif-black"
+          android:textSize="@dimen/buttonText"
+          android:text="@string/buttonSwitch"
+          android:fontFamily="@string/fontButton"
           android:id="@+id/showDetails"/>
 
         <TextView

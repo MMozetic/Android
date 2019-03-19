@@ -1,9 +1,20 @@
 <resources>
     <string name="app_name">Vremenska prognoza</string>
     <string name="format_temp">Izaberi format temperature</string>
+    <string name="forecastName">Vremenska prognoza</string>
+    <string name="enterCity">Unesite željeni grad:</string>
+    <string name="buttonSwitch">Prikaži</string>
+    <string name="fontButton">sans-serif-black</string>
+    <string name="fontText">sans-serif-medium</string>
+    <string name="locationText">Lokacija:</string>
+    <string name="dayText">Dan:</string>
+    <string name="tempButton">Temperatura</string>
+    <string name="sunButton">Izlazak i zalazak sunca</string>
+    <string name="windButton">Vetar</string>
+    <string name="Formats">Formati:</string>
 
     <string-array name="formats">
-        <item>C</item>
-        <item>F</item>
+        <item>°C</item>
+        <item>°F</item>
     </string-array>
 </resources>

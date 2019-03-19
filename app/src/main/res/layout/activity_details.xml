@@ -19,8 +19,8 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
-            android:text="Lokacija: "
-            android:fontFamily="sans-serif-black"
+            android:text="@string/locationText"
+            android:fontFamily="@string/fontButton"
             android:gravity="center|center"
             android:textSize="@dimen/myFontSize"/>
 
@@ -29,7 +29,7 @@
             android:layout_weight="2"
             android:layout_height="match_parent"
             android:textSize="@dimen/myFontSize"
-            android:fontFamily="sans-serif-black"
+            android:fontFamily="@string/fontButton"
             android:gravity="center|left"
             android:id="@+id/town"/>
 
@@ -45,8 +45,8 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
-            android:text="Dan: "
-            android:fontFamily="sans-serif-black"
+            android:text="@string/dayText"
+            android:fontFamily="@string/fontButton"
             android:gravity="center|center"
             android:textSize="@dimen/myFontSize"/>
 
@@ -56,7 +56,7 @@
             android:layout_height="match_parent"
             android:textSize="@dimen/myFontSize"
             android:gravity="center|left"
-            android:fontFamily="sans-serif-black"
+            android:fontFamily="@string/fontButton"
             android:id="@+id/day"/>
 
     </LinearLayout>
@@ -71,24 +71,27 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Temperatura"
-            android:fontFamily="sans-serif-black"
+            android:text="@string/tempButton"
+            android:textSize="@dimen/buttonText"
+            android:fontFamily="@string/fontButton"
             android:id="@+id/temperatureButton"/>
 
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Izlazak i zalazak sunca"
-            android:fontFamily="sans-serif-black"
+            android:textSize="@dimen/buttonText"
+            android:text="@string/sunButton"
+            android:fontFamily="@string/fontButton"
             android:id="@+id/sunButton"/>
 
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Vetar"
-            android:fontFamily="sans-serif-black"
+            android:textSize="@dimen/buttonText"
+            android:text="@string/windButton"
+            android:fontFamily="@string/fontButton"
             android:id="@+id/windButton"/>
 
     </LinearLayout>
@@ -96,6 +99,7 @@
     <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="@dimen/marginTop"
         android:layout_weight="5">
 
         <LinearLayout
@@ -114,21 +118,19 @@
                     android:layout_gravity="center"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:scaleX="0.75"
-                    android:scaleY="0.75"
+                    android:layout_height="match_parent"
                     android:id="@+id/sunImage"
-                    android:background="@drawable/sun"/>
+                    android:background="@drawable/ic_sun"/>
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:fontFamily="sans-serif-medium"
+                    android:fontFamily="@string/fontText"
                     android:layout_gravity="center"
                     android:gravity="right"
                     android:textSize="@dimen/myFontSize"
-                    android:text="Formati:  "
+                    android:text="@string/Formats"
                     />
 
                 <Spinner
@@ -152,7 +154,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.3"
-                android:fontFamily="sans-serif-medium"
+                android:fontFamily="@string/fontText"
                 android:textSize="@dimen/myFontSize"
                 android:layout_gravity="center"
                 android:gravity="center"
@@ -162,7 +164,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.3"
-                android:fontFamily="sans-serif-medium"
+                android:fontFamily="@string/fontText"
                 android:textSize="@dimen/myFontSize"
                 android:layout_gravity="center"
                 android:gravity="center"
@@ -172,7 +174,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.3"
-                android:fontFamily="sans-serif-medium"
+                android:fontFamily="@string/fontText"
                 android:textSize="@dimen/myFontSize"
                 android:layout_gravity="center"
                 android:gravity="center"
@@ -189,7 +191,7 @@
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:id="@+id/sunData"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="@string/fontText"
             android:textSize="@dimen/myFontSize"
             android:orientation="vertical">
 
@@ -198,7 +200,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="10"
                 android:id="@+id/sunRise"
-                android:fontFamily="sans-serif-medium"
+                android:fontFamily="@string/fontText"
                 android:textSize="@dimen/myFontSize"
                 android:gravity="center|bottom"
                 android:text="Izlazak Sunca: 06:47"/>
@@ -212,7 +214,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="10"
                 android:id="@+id/sunSet"
-                android:fontFamily="sans-serif-medium"
+                android:fontFamily="@string/fontText"
                 android:textSize="@dimen/myFontSize"
                 android:gravity="center|top"
                 android:text="Zalazak Sunca: 17:45"/>
@@ -223,7 +225,7 @@
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:id="@+id/windData"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="@string/fontText"
             android:textSize="@dimen/myFontSize"
             android:orientation="vertical">
 
@@ -232,7 +234,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="10"
                 android:id="@+id/windSpeed"
-                android:fontFamily="sans-serif-medium"
+                android:fontFamily="@string/fontText"
                 android:textSize="@dimen/myFontSize"
                 android:gravity="center|bottom"
                 android:text="Brzina vetra: 4.1"/>
@@ -246,7 +248,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="10"
                 android:id="@+id/windDir"
-                android:fontFamily="sans-serif-medium"
+                android:fontFamily="@string/fontText"
                 android:textSize="@dimen/myFontSize"
                 android:gravity="center|top"
                 android:text="Pravac: N"/>
