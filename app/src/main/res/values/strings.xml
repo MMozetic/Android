@@ -12,6 +12,13 @@
     <string name="sunButton">Izlazak i zalazak sunca</string>
     <string name="windButton">Vetar</string>
     <string name="Formats">Formati:</string>
+    <string name="temp1">Temperatura: 11</string>
+    <string name="temp2">Pritisak: 100</string>
+    <string name="temp3">Vlažnost vazduha: 44</string>
+    <string name="sun1">Izlazak Sunca: 06:47</string>
+    <string name="sun2">Zalazak Sunca: 17:45</string>
+    <string name="wind1">Brzina vetra: 4.1</string>
+    <string name="wind2">Pravac: N</string>
 
     <string-array name="formats">
         <item>°C</item>
