@@ -4,4 +4,6 @@
     <dimen name="fontSize">30sp</dimen>
     <dimen name="buttonText">13sp</dimen>
     <dimen name="marginTop">15sp</dimen>
+    <dimen name="myImageWidth">130sp</dimen>
+    <dimen name="myImageHeight">130sp</dimen>
 </resources>

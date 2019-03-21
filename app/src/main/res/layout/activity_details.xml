@@ -25,12 +25,13 @@
 
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:layout_height="match_parent"
-            android:textSize="@dimen/myFontSize"
+            android:text="@string/dayText"
             android:fontFamily="@string/fontButton"
-            android:gravity="center|left"
-            android:id="@+id/town"/>
+            android:gravity="center|center"
+            android:textSize="@dimen/myFontSize"/>
+
 
     </LinearLayout>
 
@@ -45,17 +46,17 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
-            android:text="@string/dayText"
+            android:textSize="@dimen/myFontSize"
             android:fontFamily="@string/fontButton"
             android:gravity="center|center"
-            android:textSize="@dimen/myFontSize"/>
+            android:id="@+id/town"/>
 
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:textSize="@dimen/myFontSize"
-            android:gravity="center|left"
+            android:gravity="center|center"
             android:fontFamily="@string/fontButton"
             android:id="@+id/day"/>
 
@@ -120,13 +121,21 @@
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_gravity="center"
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
-                    android:id="@+id/sunImage"
-                    android:background="@drawable/ic_sun"/>
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_width="@dimen/myImageWidth"
+                        android:layout_height="@dimen/myImageHeight"
+                        android:adjustViewBounds="true"
+                        android:id="@+id/sunImage"
+                        android:background="@drawable/ic_sun"/>
+
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="0dp"
