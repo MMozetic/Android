@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -23,8 +24,16 @@ public class CustomAdapter extends BaseAdapter {
     }
 
     public void addElement(ListElement element){
-        mElements.add(element);
-        notifyDataSetChanged();
+        boolean contains = false;
+        for (ListElement c : mElements) {
+            if (c.mText.equals(element.mText))
+                contains = true;
+        }
+
+        if(!contains){
+            mElements.add(element);
+            notifyDataSetChanged();
+        }
     }
 
     public void removeElement(int position){
