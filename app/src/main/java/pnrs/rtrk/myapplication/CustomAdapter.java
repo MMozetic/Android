@@ -24,16 +24,17 @@ public class CustomAdapter extends BaseAdapter {
     }
 
     public void addElement(ListElement element){
-        boolean contains = false;
-        for (ListElement c : mElements) {
-            if (c.mText.equals(element.mText))
-                contains = true;
-        }
-
-        if(!contains){
             mElements.add(element);
             notifyDataSetChanged();
+    }
+
+    public boolean containsElement(ListElement element){
+        boolean ind = false;
+        for (ListElement el : mElements) {
+            if (el.mText.equals(element.mText))
+                ind = true;
         }
+        return ind;
     }
 
     public void removeElement(int position){

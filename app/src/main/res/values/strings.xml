@@ -21,8 +21,13 @@
     <string name="wind2">Pravac: N</string>
 
     <string name="Beograd">Beograd</string>
+    <string name="Šabac">Šabac</string>
     <string name="Pariz">Pariz</string>
     <string name="Barselona">Barselona</string>
+    <string name="toastWarning1">Grad već postoji u listi!</string>
+    <string name="toastWarning2">Unesite grad!</string>
+    <string name="toastSuccess1">Grad je uspešno dodat u listu</string>
+    <string name="hintText1">Unesite željeni grad</string>
 
     <string-array name="formats">
         <item>°C</item>
