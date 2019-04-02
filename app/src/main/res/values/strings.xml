@@ -3,7 +3,7 @@
     <string name="format_temp">Izaberi format temperature</string>
     <string name="forecastName">Vremenska prognoza</string>
     <string name="enterCity">Unesite željeni grad:</string>
-    <string name="buttonSwitch">Prikaži</string>
+    <string name="buttonSwitch">Dodaj grad</string>
     <string name="fontButton">sans-serif-black</string>
     <string name="fontText">sans-serif-medium</string>
     <string name="locationText">Lokacija:</string>
@@ -19,6 +19,10 @@
     <string name="sun2">Zalazak Sunca: 17:45</string>
     <string name="wind1">Brzina vetra: 4.1</string>
     <string name="wind2">Pravac: N</string>
+
+    <string name="Beograd">Beograd</string>
+    <string name="Pariz">Pariz</string>
+    <string name="Barselona">Barselona</string>
 
     <string-array name="formats">
         <item>°C</item>

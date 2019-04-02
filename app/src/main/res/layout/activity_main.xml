@@ -16,26 +16,26 @@
         android:textSize="@dimen/fontSize"
         android:fontFamily="@string/fontButton"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.2"
-        android:gravity="center"
-        android:text="@string/enterCity"
-        android:fontFamily="@string/fontText"
-        android:textSize="@dimen/myFontSize"/>
-
-    <!-- Controlling EditText width using 2 TextViews in the same LinearLayout -->
+    <!-- Controlling EditText and Button width using 2 TextViews in the same LinearLayout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.5"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight="0.5"
             android:layout_height="wrap_content" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/buttonText"
+            android:text="@string/buttonSwitch"
+            android:fontFamily="@string/fontButton"
+            android:id="@+id/cityInList"/>
 
         <EditText
             android:layout_width="0dp"
@@ -47,35 +47,23 @@
 
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight="0.5"
             android:layout_height="wrap_content" />
     </LinearLayout>
 
-    <!-- Controlling Button width using 2 TextViews in the same LinearLayout -->
-    <LinearLayout
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/listElement">
+
+    </ListView>
+
+    <TextView
+        android:height="0dp"
+        android:layout_width="match_parent"
         android:layout_weight="0.5"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content" />
-
-      <Button
-          android:layout_width="0dp"
-          android:layout_weight="2"
-          android:layout_height="wrap_content"
-          android:textSize="@dimen/buttonText"
-          android:text="@string/buttonSwitch"
-          android:fontFamily="@string/fontButton"
-          android:id="@+id/showDetails"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:id="@+id/elementList"/>
 
 </LinearLayout>
