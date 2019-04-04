@@ -5,7 +5,8 @@
     android:orientation="horizontal">
 
     <RadioButton
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="2"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:focusableInTouchMode="false"
@@ -13,7 +14,8 @@
         android:id="@+id/radioBtn"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="10"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:fontFamily="@string/fontText"
@@ -21,7 +23,8 @@
         android:id="@+id/textEl"/>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="5"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:id="@+id/buttonEl"
