@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -74,6 +75,7 @@ public class CustomAdapter extends BaseAdapter {
             ViewHolder holder = new ViewHolder();
             holder.tw = (TextView) view.findViewById(R.id.textEl);
             holder.rb = (RadioButton) view.findViewById(R.id.radioBtn);
+            holder.rb1 = (Button) view.findViewById(R.id.buttonEl);
             view.setTag(holder);
         }
 
@@ -92,11 +94,21 @@ public class CustomAdapter extends BaseAdapter {
             }
         });
 
+        holder.rb1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent switchActivity = new Intent(mContext, DetailsActivity.class);
+                switchActivity.putExtra("town", holder.tw.getText());
+                mContext.startActivity(switchActivity);
+            }
+        });
+
         return view;
     }
 
     private class ViewHolder {
         public TextView tw = null;
         public RadioButton rb = null;
+        public Button rb1 = null;
     }
 }

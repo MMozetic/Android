@@ -28,6 +28,7 @@
     <string name="toastWarning2">Unesite grad!</string>
     <string name="toastSuccess1">Grad je uspešno dodat u listu</string>
     <string name="hintText1">Unesite željeni grad</string>
+    <string name="elementButton">PRIKAZI</string>
 
     <string-array name="formats">
         <item>°C</item>
