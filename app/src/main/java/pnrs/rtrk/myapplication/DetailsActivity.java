@@ -1,16 +1,22 @@
 package pnrs.rtrk.myapplication;
 
+import android.app.Activity;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Button;
 
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -20,12 +26,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import pnrs.rtrk.MyApplication;
+
 public class DetailsActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Button tempButton, sunButton, windButton;
     private LinearLayout tempLayout, sunLayout, windLayout;
     private String temp1,temp2,temp3,sun1,sun2,wind1,wind2;
     private TextView tmp1,tmp2,tmp3,sunRise,sunSet,windSpeed,windDir;
+    private ImageView image;
 
     public static String BASE_URL = "https://api.openweathermap.org/data/2.5/weather?q=";
     public static String KEY = "&APPID=8a8b70915fd021fff2707ceaef3dceb1&units=metric";
@@ -75,6 +84,8 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.formats,android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         format.setAdapter(adapter);
+
+        image = findViewById(R.id.sunImage);
     }
 
     @Override
@@ -96,13 +107,22 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
                             temp2 = "Pritisak: " + temperature.get("pressure").toString() + " mbar";
                             temp3 = "Vlažnost vazduha: " + temperature.get("humidity").toString() + "%";
 
+                            String icon = "";
+                            JSONArray jsonarray = jsonObject.getJSONArray("weather");
+                            for (int i = 0; i < jsonarray.length(); i++) {
+                                JSONObject jsonobject = jsonarray.getJSONObject(i);
+                                icon = jsonobject.getString("icon");
+                            }
+
+                            final String iconUrl = "http://openweathermap.org/img/w/" + icon + ".png";
+
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     tmp1.setText(temp1);
                                     tmp2.setText(temp2);
                                     tmp3.setText(temp3);
-
+                                    Picasso.with(MyApplication.getAppContext()).load(iconUrl).into(image);
                                     format.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                         @Override
                                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

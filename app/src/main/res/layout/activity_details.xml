@@ -132,8 +132,8 @@
                         android:layout_width="@dimen/myImageWidth"
                         android:layout_height="@dimen/myImageHeight"
                         android:adjustViewBounds="true"
-                        android:id="@+id/sunImage"
-                        android:background="@drawable/ic_sun"/>
+                        android:id="@+id/sunImage"/>
+                        <!--android:background="@drawable/ic_sun"-->
 
                 </LinearLayout>
 

@@ -3,6 +3,7 @@
     package="pnrs.rtrk.myapplication">
     <uses-permission android:name="android.permission.INTERNET" />
     <application
+        android:name="pnrs.rtrk.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_umbrella"
         android:label="@string/app_name"
