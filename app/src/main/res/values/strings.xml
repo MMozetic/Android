@@ -20,10 +20,10 @@
     <string name="wind1">Brzina vetra: 4.1</string>
     <string name="wind2">Pravac: N</string>
 
-    <string name="Beograd">Beograd</string>
-    <string name="Šabac">Šabac</string>
-    <string name="Pariz">Pariz</string>
-    <string name="Barselona">Barselona</string>
+    <string name="Beograd">Belgrade</string>
+    <string name="London">London</string>
+    <string name="Pariz">Paris</string>
+    <string name="Barselona">Barcelona</string>
     <string name="toastWarning1">Grad već postoji u listi!</string>
     <string name="toastWarning2">Unesite grad!</string>
     <string name="toastSuccess1">Grad je uspešno dodat u listu</string>

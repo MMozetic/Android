@@ -49,7 +49,7 @@
             android:textSize="@dimen/myFontSize"
             android:gravity="center|center"
             android:fontFamily="@string/fontButton"
-            android:id="@+id/day"/>
+            android:id="@+id/town"/>
 
         <TextView
             android:layout_width="0dp"
@@ -58,7 +58,7 @@
             android:textSize="@dimen/myFontSize"
             android:gravity="center|center"
             android:fontFamily="@string/fontButton"
-            android:id="@+id/town"/>
+            android:id="@+id/day"/>
 
     </LinearLayout>
 
@@ -173,7 +173,7 @@
                 android:textSize="@dimen/myFontSize"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="@string/temp1"/>
+                android:id="@+id/temp1" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -183,7 +183,7 @@
                 android:textSize="@dimen/myFontSize"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="@string/temp2"/>
+                android:id="@+id/temp2" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -193,7 +193,7 @@
                 android:textSize="@dimen/myFontSize"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="@string/temp3"/>
+                android:id="@+id/temp3"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -218,8 +218,7 @@
                 android:id="@+id/sunRise"
                 android:fontFamily="@string/fontText"
                 android:textSize="@dimen/myFontSize"
-                android:gravity="center|bottom"
-                android:text="@string/sun1"/>
+                android:gravity="center|bottom"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -232,8 +231,7 @@
                 android:id="@+id/sunSet"
                 android:fontFamily="@string/fontText"
                 android:textSize="@dimen/myFontSize"
-                android:gravity="center|top"
-                android:text="@string/sun2"/>
+                android:gravity="center|top"/>
 
         </LinearLayout>
 
@@ -253,8 +251,7 @@
                 android:id="@+id/windSpeed"
                 android:fontFamily="@string/fontText"
                 android:textSize="@dimen/myFontSize"
-                android:gravity="center|bottom"
-                android:text="@string/wind1"/>
+                android:gravity="center|bottom"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -267,8 +264,7 @@
                 android:id="@+id/windDir"
                 android:fontFamily="@string/fontText"
                 android:textSize="@dimen/myFontSize"
-                android:gravity="center|top"
-                android:text="@string/wind2"/>
+                android:gravity="center|top" />
 
         </LinearLayout>
 

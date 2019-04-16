@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         adapter.addElement(new ListElement(getString(R.string.Beograd)));
         adapter.addElement(new ListElement(getString(R.string.Pariz)));
         adapter.addElement(new ListElement(getString(R.string.Barselona)));
-        adapter.addElement(new ListElement(getString(R.string.Šabac)));
+        adapter.addElement(new ListElement(getString(R.string.London)));
 
         list.setAdapter(adapter);
 
