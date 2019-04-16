@@ -6,8 +6,8 @@
     <string name="buttonSwitch">Dodaj grad</string>
     <string name="fontButton">sans-serif-black</string>
     <string name="fontText">sans-serif-medium</string>
-    <string name="locationText">Lokacija:</string>
-    <string name="dayText">Dan:</string>
+    <string name="locationText">Lokacija</string>
+    <string name="dayText">Dan</string>
     <string name="tempButton">Temperatura</string>
     <string name="sunButton">Izlazak i zalazak sunca</string>
     <string name="windButton">Vetar</string>

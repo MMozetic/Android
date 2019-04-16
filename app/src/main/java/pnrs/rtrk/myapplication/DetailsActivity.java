@@ -1,10 +1,12 @@
 package pnrs.rtrk.myapplication;
 
-import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Button;
 
@@ -15,6 +17,12 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
 
     private Button tempButton, sunButton, windButton;
     private LinearLayout tempLayout, sunLayout, windLayout;
+    private Spinner spinner;
+
+    private HTTPHelper httpHelper;
+    public final String BASE_URL = "https://api.openweathermap.org/data/2.5/weather?q=";
+    public final String KEY = "&APPID=8a8b70915fd021fff2707ceaef3dceb1&units=metric";
+    public String GET_INFO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +31,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
 
         TextView town = findViewById(R.id.town);
         Bundle bundle = getIntent().getExtras();
+        spinner = findViewById(R.id.list);
 
         TextView day = findViewById(R.id.day);
         day.setText(dayInSerbian());
@@ -43,6 +52,13 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         windLayout = findViewById(R.id.windData);
         windLayout.setVisibility(View.INVISIBLE);
 
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.formats,android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        httpHelper = new HTTPHelper();
+        GET_INFO = BASE_URL + bundle.get("town").toString() + KEY;
+        Log.d("URL", GET_INFO);
     }
 
     @Override

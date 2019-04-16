@@ -47,9 +47,9 @@
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:textSize="@dimen/myFontSize"
-            android:fontFamily="@string/fontButton"
             android:gravity="center|center"
-            android:id="@+id/town"/>
+            android:fontFamily="@string/fontButton"
+            android:id="@+id/day"/>
 
         <TextView
             android:layout_width="0dp"
@@ -58,7 +58,7 @@
             android:textSize="@dimen/myFontSize"
             android:gravity="center|center"
             android:fontFamily="@string/fontButton"
-            android:id="@+id/day"/>
+            android:id="@+id/town"/>
 
     </LinearLayout>
 
