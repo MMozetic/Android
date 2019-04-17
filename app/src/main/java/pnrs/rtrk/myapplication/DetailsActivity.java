@@ -1,7 +1,5 @@
 package pnrs.rtrk.myapplication;
 
-import android.app.Activity;
-import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -96,6 +94,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
                 tempLayout.setVisibility(View.VISIBLE);
                 windLayout.setVisibility(View.INVISIBLE);
 
+                format.setSelection(0);
                 new Thread(new Runnable() {
                     public void run() {
                         try{
