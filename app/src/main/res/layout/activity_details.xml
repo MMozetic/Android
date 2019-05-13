@@ -18,20 +18,11 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
-            android:text="@string/locationText"
+            android:textSize="@dimen/myFontSize"
+            android:gravity="left|center"
             android:fontFamily="@string/fontButton"
-            android:gravity="center|center"
-            android:textSize="@dimen/myFontSize"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:text="@string/dayText"
-            android:fontFamily="@string/fontButton"
-            android:gravity="center|center"
-            android:textSize="@dimen/myFontSize"/>
-
+            android:layout_marginLeft="@dimen/myFontSize"
+            android:id="@+id/town"/>
 
     </LinearLayout>
 
@@ -44,21 +35,30 @@
 
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:layout_height="match_parent"
             android:textSize="@dimen/myFontSize"
-            android:gravity="center|center"
             android:fontFamily="@string/fontButton"
-            android:id="@+id/town"/>
+            android:gravity="left|center"
+            android:text="Blablalba"
+            android:layout_marginLeft="@dimen/myFontSize"
+            android:id="@+id/day"/>
 
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
-            android:textSize="@dimen/myFontSize"
-            android:gravity="center|center"
-            android:fontFamily="@string/fontButton"
-            android:id="@+id/day"/>
+            android:textSize="10sp"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:text="(Last updated)"
+            android:id="@+id/updateText"/>
+
+        <RadioButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/updateRadioBtn"/>
 
     </LinearLayout>
 
@@ -133,7 +133,6 @@
                         android:layout_height="@dimen/myImageHeight"
                         android:adjustViewBounds="true"
                         android:id="@+id/sunImage"/>
-                        <!--android:background="@drawable/ic_sun"-->
 
                 </LinearLayout>
 

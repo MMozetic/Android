@@ -1,5 +1,8 @@
 package pnrs.rtrk.myapplication;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,9 +11,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -31,14 +36,16 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
     private Button tempButton, sunButton, windButton;
     private LinearLayout tempLayout, sunLayout, windLayout;
     private String temp1,temp2,temp3,sun1,sun2,wind1,wind2;
-    private TextView tmp1,tmp2,tmp3,sunRise,sunSet,windSpeed,windDir;
+    private TextView tmp1,tmp2,tmp3,sunRise,sunSet,windSpeed,windDir, updateText;
     private ImageView image;
+    private RadioButton updateBtn;
 
     public static String BASE_URL = "https://api.openweathermap.org/data/2.5/weather?q=";
     public static String KEY = "&APPID=8a8b70915fd021fff2707ceaef3dceb1&units=metric";
     public String GET_INFO;
     private HTTPHelper httpHelper;
     private Spinner format;
+    private int counter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +56,14 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         Bundle bundle = getIntent().getExtras();
 
         TextView day = findViewById(R.id.day);
-        day.setText(dayInSerbian());
-        town.setText(bundle.get("town").toString());
+
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat date = new SimpleDateFormat("dd/MMM/yyyy");
+
+        //day.setText(getString(R.string.dayText) + " " + dayInSerbian());
+        day.setText(getString(R.string.dateText) + " " + date.format(c.getTime()));
+
+        town.setText(getString(R.string.locationText) + " " + bundle.get("town").toString());
 
         tempButton = findViewById(R.id.temperatureButton);
         tempButton.setOnClickListener(this);
@@ -84,6 +97,45 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         format.setAdapter(adapter);
 
         image = findViewById(R.id.sunImage);
+
+
+        ContentResolver resolver = getContentResolver();
+
+        ContentValues values = new ContentValues();
+        values.put(WeatherDbHelper.COLUMN_DATE,"10/05/2019");
+        values.put(WeatherDbHelper.COLUMN_NAME,bundle.get("town").toString());
+        values.put(WeatherDbHelper.COLUMN_TEMPERATURE,10);
+        values.put(WeatherDbHelper.COLUMN_PREASSURE,1000);
+        values.put(WeatherDbHelper.COLUMN_HUMIDITY,53);
+        values.put(WeatherDbHelper.COLUMN_SUNRISE,"05:00");
+        values.put(WeatherDbHelper.COLUMN_SUNSET,"08:00");
+        values.put(WeatherDbHelper.COLUMN_WIND_SPEED,4.3);
+        values.put(WeatherDbHelper.COLUMN_WIND_DIRECTION,"N");
+        resolver.insert(WeatherProvider.CONTENT_URI,values);
+
+
+        Cursor cursor = resolver.query(WeatherProvider.CONTENT_URI,null,"Name=?",new String[]{bundle.get("town").toString()},null);
+
+        counter = 0;
+
+        for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            counter++;
+        }
+
+        //day.setText(String.valueOf(counter));
+        if(counter == 0){
+            Toast.makeText(this, "Grad nije u bazi!",Toast.LENGTH_SHORT).show();
+        }else{
+            getHTTPData();
+        }
+
+        cursor.close();
+
+        updateText = findViewById(R.id.updateText);
+        updateBtn = findViewById(R.id.updateRadioBtn);
+        updateBtn.setOnClickListener(this);
+        updateBtn.setChecked(false);
+
     }
 
     @Override
@@ -95,61 +147,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
                 windLayout.setVisibility(View.INVISIBLE);
 
                 format.setSelection(0);
-                new Thread(new Runnable() {
-                    public void run() {
-                        try{
-                            JSONObject jsonObject = httpHelper.getJSONObjectFromURL(GET_INFO);
 
-                            JSONObject temperature = jsonObject.getJSONObject("main");
-                            final String temp = temperature.get("temp").toString();
-                            temp1 = "Temperatura: " + temperature.get("temp").toString();
-                            temp2 = "Pritisak: " + temperature.get("pressure").toString() + " mbar";
-                            temp3 = "Vlažnost vazduha: " + temperature.get("humidity").toString() + "%";
-
-                            String icon = "";
-                            JSONArray jsonarray = jsonObject.getJSONArray("weather");
-                            for (int i = 0; i < jsonarray.length(); i++) {
-                                JSONObject jsonobject = jsonarray.getJSONObject(i);
-                                icon = jsonobject.getString("icon");
-                            }
-
-                            final String iconUrl = "http://openweathermap.org/img/w/" + icon + ".png";
-
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    tmp1.setText(temp1);
-                                    tmp2.setText(temp2);
-                                    tmp3.setText(temp3);
-                                    Picasso.with(MyApplication.getAppContext()).load(iconUrl).into(image);
-                                    format.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                        @Override
-                                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                            switch (parent.getItemAtPosition(position).toString()){
-                                                case "°C":
-                                                    tmp1.setText(temp1);
-                                                    break;
-                                                default:
-                                                    double temperature = Double.parseDouble(temp)*9/5 + 32;
-                                                    tmp1.setText("Temperatura: " + Double.toString(temperature));
-                                                    break;
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onNothingSelected(AdapterView<?> parent) {
-                                            tmp1.setText(temp1);
-                                        }
-                                    });
-                                }
-                            });
-                        }catch (JSONException e){
-                            e.printStackTrace();
-                        }catch (IOException e){
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
                 break;
 
             case R.id.sunButton:
@@ -157,34 +155,6 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
                 tempLayout.setVisibility(View.INVISIBLE);
                 windLayout.setVisibility(View.INVISIBLE);
 
-                new Thread(new Runnable() {
-                    public void run() {
-                        try{
-                            JSONObject jsonObject = httpHelper.getJSONObjectFromURL(GET_INFO);
-
-                            JSONObject sun = jsonObject.getJSONObject("sys");
-                            long s1 = Long.valueOf(sun.get("sunrise").toString())*1000;
-                            long s2 = Long.valueOf(sun.get("sunset").toString())*1000;
-                            Date d1 = new java.util.Date(s1);
-                            Date d2 = new java.util.Date(s2);
-                            Locale locale = new Locale.Builder().setLanguage("sr").setRegion("RS").setScript("Latn").build();
-                            sun1 = "Izlazak sunca: " + new SimpleDateFormat("hh:mma ", locale).format(d1);
-                            sun2 = "Zalazak sunca: " + new SimpleDateFormat("hh:mma ",locale).format(d2);
-
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    sunRise.setText(sun1);
-                                    sunSet.setText(sun2);
-                                }
-                            });
-                        }catch (JSONException e){
-                            e.printStackTrace();
-                        }catch (IOException e){
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
                 break;
 
             case R.id.windButton:
@@ -192,28 +162,14 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
                 tempLayout.setVisibility(View.INVISIBLE);
                 windLayout.setVisibility(View.VISIBLE);
 
-                new Thread(new Runnable() {
-                    public void run() {
-                        try{
-                            JSONObject jsonObject = httpHelper.getJSONObjectFromURL(GET_INFO);
+                break;
 
-                            JSONObject wind = jsonObject.getJSONObject("wind");
-                            wind1 = "Brzina vetra: " + wind.get("speed").toString() + " m/s";
-                            wind2 = "Pravac: " + windConverter(wind.getDouble("deg"));
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    windSpeed.setText(wind1);
-                                    windDir.setText(wind2);
-                                }
-                            });
-                        }catch (JSONException e){
-                            e.printStackTrace();
-                        }catch (IOException e){
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
+            case R.id.updateRadioBtn:
+                getHTTPData();
+                updateText.setVisibility(View.INVISIBLE);
+                updateBtn.setVisibility(View.INVISIBLE);
+                updateBtn.setChecked(false);
+
                 break;
         }
     }
@@ -222,7 +178,6 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         Calendar calendar = Calendar.getInstance();
         Locale locale = new Locale.Builder().setLanguage("sr").setRegion("RS").setScript("Latn").build();
         String s = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, locale);
-
         return s;
     }
 
@@ -252,5 +207,80 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
             return "N-W";
         }
         return "N";
+    }
+
+    protected void getHTTPData(){
+        new Thread(new Runnable() {
+            public void run() {
+                try{
+                    JSONObject jsonObject = httpHelper.getJSONObjectFromURL(GET_INFO);
+
+                    JSONObject temperature = jsonObject.getJSONObject("main");
+                    final String temp = temperature.get("temp").toString();
+                    temp1 = getString(R.string.tempJson)+ " "  + temperature.get("temp").toString();
+                    temp2 = getString(R.string.preassureJson)+ " "  + temperature.get("pressure").toString() + " mbar";
+                    temp3 = getString(R.string.humidityJson)+ " "  + temperature.get("humidity").toString() + "%";
+
+                    String icon = "";
+                    JSONArray jsonarray = jsonObject.getJSONArray("weather");
+                    for (int i = 0; i < jsonarray.length(); i++) {
+                        JSONObject jsonobject = jsonarray.getJSONObject(i);
+                        icon = jsonobject.getString("icon");
+                    }
+
+                    final String iconUrl = "http://openweathermap.org/img/w/" + icon + ".png";
+
+                    JSONObject sun = jsonObject.getJSONObject("sys");
+                    long s1 = Long.valueOf(sun.get("sunrise").toString())*1000;
+                    long s2 = Long.valueOf(sun.get("sunset").toString())*1000;
+                    Date d1 = new Date(s1);
+                    Date d2 = new Date(s2);
+                    Locale locale = new Locale.Builder().setLanguage("sr").setRegion("RS").setScript("Latn").build();
+                    sun1 = getString(R.string.sun1Json)+ " "  + new SimpleDateFormat("hh:mma ", locale).format(d1);
+                    sun2 = getString(R.string.sun2Json)+ " "  + new SimpleDateFormat("hh:mma ",locale).format(d2);
+
+                    JSONObject wind = jsonObject.getJSONObject("wind");
+                    wind1 = getString(R.string.wind1Json)+ " "  + wind.get("speed").toString() + " m/s";
+                    wind2 = getString(R.string.wind2Json)+ " "  + windConverter(wind.getDouble("deg"));
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            tmp1.setText(temp1);
+                            tmp2.setText(temp2);
+                            tmp3.setText(temp3);
+                            sunRise.setText(sun1);
+                            sunSet.setText(sun2);
+                            windSpeed.setText(wind1);
+                            windDir.setText(wind2);
+                            Picasso.with(MyApplication.getAppContext()).load(iconUrl).into(image);
+                            format.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                    switch (parent.getItemAtPosition(position).toString()){
+                                        case "°C":
+                                            tmp1.setText(temp1);
+                                            break;
+                                        default:
+                                            double temperature = Double.parseDouble(temp)*9/5 + 32;
+                                            tmp1.setText(getString(R.string.tempJson) + Double.toString(temperature));
+                                            break;
+                                    }
+                                }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> parent) {
+                                    tmp1.setText(temp1);
+                                }
+                            });
+                        }
+                    });
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 }
