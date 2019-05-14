@@ -19,6 +19,7 @@ public class WeatherDbHelper extends SQLiteOpenHelper {
     public static final String COLUMN_SUNSET = "Sunset";
     public static final String COLUMN_WIND_SPEED = "WindSpeed";
     public static final String COLUMN_WIND_DIRECTION = "WindDirection";
+    public static final String COLUMN_IMAGE_URL = "ImageUrl";
 
     public WeatherDbHelper(Context context){
         super(context,DATABASE_NAME,null,DATABASE_VERSION);
@@ -35,7 +36,8 @@ public class WeatherDbHelper extends SQLiteOpenHelper {
                 COLUMN_SUNRISE + " TEXT, " +
                 COLUMN_SUNSET + " TEXT, " +
                 COLUMN_WIND_SPEED + " REAL, " +
-                COLUMN_WIND_DIRECTION + " TEXT);"
+                COLUMN_WIND_DIRECTION + " TEXT, " +
+                COLUMN_IMAGE_URL + " TEXT);"
                 );
     }
 

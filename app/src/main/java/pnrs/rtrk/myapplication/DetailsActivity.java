@@ -109,10 +109,11 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         values.put(WeatherDbHelper.COLUMN_TEMPERATURE,10);
         values.put(WeatherDbHelper.COLUMN_PREASSURE,1000);
         values.put(WeatherDbHelper.COLUMN_HUMIDITY,53);
-        values.put(WeatherDbHelper.COLUMN_SUNRISE,"05:00");
-        values.put(WeatherDbHelper.COLUMN_SUNSET,"08:00");
+        values.put(WeatherDbHelper.COLUMN_SUNRISE,"05:00pre podne");
+        values.put(WeatherDbHelper.COLUMN_SUNSET,"08:00popodne");
         values.put(WeatherDbHelper.COLUMN_WIND_SPEED,4.3);
         values.put(WeatherDbHelper.COLUMN_WIND_DIRECTION,"N");
+        values.put(WeatherDbHelper.COLUMN_IMAGE_URL, "09d");
         resolver.insert(WeatherProvider.CONTENT_URI,values);
 
         Cursor cursor = resolver.query(WeatherProvider.CONTENT_URI,null,"Name=?",new String[]{bundle.get("town").toString()},"Date ASC");
@@ -132,11 +133,12 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
             tmp1.setText(getString(R.string.tempJson) + " " + Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))));
             tmp2.setText(getString(R.string.preassureJson)+ " " + Integer.toString(cursor.getInt(cursor.getColumnIndex("Preassure"))) + " mbar");
             tmp3.setText(getString(R.string.humidityJson)+ " "  + Integer.toString(cursor.getInt(cursor.getColumnIndex("Humidity")))+ "%");
-            sunRise.setText(getString(R.string.sun1Json)+ " "  + cursor.getString(cursor.getColumnIndex("Sunrise"))+ getString(R.string.suriseText2));
-            sunSet.setText(getString(R.string.sun2Json)+ " "  + cursor.getString(cursor.getColumnIndex("Sunset")) + getString(R.string.sunsetText2));
+            sunRise.setText(getString(R.string.sun1Json)+ " "  + cursor.getString(cursor.getColumnIndex("Sunrise")) );
+            sunSet.setText(getString(R.string.sun2Json)+ " "  + cursor.getString(cursor.getColumnIndex("Sunset")));
             windSpeed.setText(getString(R.string.wind1Json)+ " "  + Double.toString(cursor.getDouble(cursor.getColumnIndex("WindSpeed")))+ " m/s");
             windDir.setText(getString(R.string.wind2Json)+ " "  + cursor.getString(cursor.getColumnIndex("WindDirection")));
-            image.setImageResource(R.drawable.ic_sun);
+            final String iconUrl = "http://openweathermap.org/img/w/" + cursor.getString(cursor.getColumnIndex("ImageUrl")) + ".png";
+            Picasso.with(MyApplication.getAppContext()).load(iconUrl).into(image);
         }
 
         cursor.close();
@@ -269,6 +271,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
                     values.put(WeatherDbHelper.COLUMN_SUNSET, sunset);
                     values.put(WeatherDbHelper.COLUMN_WIND_SPEED, Double.parseDouble(wind.get("speed").toString()));
                     values.put(WeatherDbHelper.COLUMN_WIND_DIRECTION, windConverter(wind.getDouble("deg")));
+                    values.put(WeatherDbHelper.COLUMN_IMAGE_URL,icon);
                     resolver.insert(WeatherProvider.CONTENT_URI, values);
 
                     runOnUiThread(new Runnable() {
