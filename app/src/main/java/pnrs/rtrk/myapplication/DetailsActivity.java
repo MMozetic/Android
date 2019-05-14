@@ -101,7 +101,6 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
 
         image = findViewById(R.id.sunImage);
 
-
         ContentResolver resolver = getContentResolver();
 
         ContentValues values = new ContentValues();
@@ -116,7 +115,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         values.put(WeatherDbHelper.COLUMN_WIND_DIRECTION,"N");
         resolver.insert(WeatherProvider.CONTENT_URI,values);
 
-        Cursor cursor = resolver.query(WeatherProvider.CONTENT_URI,null,"Name=?",new String[]{bundle.get("town").toString()},null);
+        Cursor cursor = resolver.query(WeatherProvider.CONTENT_URI,null,"Name=?",new String[]{bundle.get("town").toString()},"Date ASC");
 
         counter = 0;
 
@@ -137,6 +136,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
             sunSet.setText(getString(R.string.sun2Json)+ " "  + cursor.getString(cursor.getColumnIndex("Sunset")) + getString(R.string.sunsetText2));
             windSpeed.setText(getString(R.string.wind1Json)+ " "  + Double.toString(cursor.getDouble(cursor.getColumnIndex("WindSpeed")))+ " m/s");
             windDir.setText(getString(R.string.wind2Json)+ " "  + cursor.getString(cursor.getColumnIndex("WindDirection")));
+            image.setImageResource(R.drawable.ic_sun);
         }
 
         cursor.close();
