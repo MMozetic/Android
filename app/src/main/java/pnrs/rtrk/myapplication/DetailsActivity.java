@@ -103,19 +103,6 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
 
         ContentResolver resolver = getContentResolver();
 
-        ContentValues values = new ContentValues();
-        values.put(WeatherDbHelper.COLUMN_DATE,"10/May/2019");
-        values.put(WeatherDbHelper.COLUMN_NAME,"Novi Sad");
-        values.put(WeatherDbHelper.COLUMN_TEMPERATURE,10);
-        values.put(WeatherDbHelper.COLUMN_PREASSURE,1000);
-        values.put(WeatherDbHelper.COLUMN_HUMIDITY,53);
-        values.put(WeatherDbHelper.COLUMN_SUNRISE,"05:00pre podne");
-        values.put(WeatherDbHelper.COLUMN_SUNSET,"08:00popodne");
-        values.put(WeatherDbHelper.COLUMN_WIND_SPEED,4.3);
-        values.put(WeatherDbHelper.COLUMN_WIND_DIRECTION,"N");
-        values.put(WeatherDbHelper.COLUMN_IMAGE_URL, "09d");
-        resolver.insert(WeatherProvider.CONTENT_URI,values);
-
         Cursor cursor = resolver.query(WeatherProvider.CONTENT_URI,null,"Name=?",new String[]{bundle.get("town").toString()},"Date ASC");
 
         counter = 0;
