@@ -128,6 +128,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         if(counter == 0){
             getHTTPData();
         }else{
+
             cursor.moveToLast();
             day.setText(getString(R.string.dateText) + " " + cursor.getString(cursor.getColumnIndex("Date")));
             tmp1.setText(getString(R.string.tempJson) + " " + Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))));

@@ -40,7 +40,6 @@
             android:textSize="@dimen/myFontSize"
             android:fontFamily="@string/fontButton"
             android:gravity="left|center"
-            android:text="Blablalba"
             android:layout_marginLeft="@dimen/myFontSize"
             android:id="@+id/day"/>
 
