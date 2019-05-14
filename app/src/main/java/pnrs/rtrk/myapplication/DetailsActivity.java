@@ -124,11 +124,18 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
             counter++;
         }
 
+        updateText = findViewById(R.id.updateText);
+        updateBtn = findViewById(R.id.updateRadioBtn);
+        updateBtn.setOnClickListener(this);
+        updateBtn.setChecked(false);
 
         if(counter == 0){
+            updateText.setVisibility(View.INVISIBLE);
+            updateBtn.setVisibility(View.INVISIBLE);
             getHTTPData();
         }else{
-
+            updateText.setVisibility(View.VISIBLE);
+            updateBtn.setVisibility(View.VISIBLE);
             cursor.moveToLast();
             day.setText(getString(R.string.dateText) + " " + cursor.getString(cursor.getColumnIndex("Date")));
             tmp1.setText(getString(R.string.tempJson) + " " + Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))));
@@ -143,11 +150,6 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         }
 
         cursor.close();
-
-        updateText = findViewById(R.id.updateText);
-        updateBtn = findViewById(R.id.updateRadioBtn);
-        updateBtn.setOnClickListener(this);
-        updateBtn.setChecked(false);
 
     }
 
