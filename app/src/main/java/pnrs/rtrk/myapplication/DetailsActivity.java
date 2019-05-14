@@ -40,13 +40,13 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
     private TextView tmp1,tmp2,tmp3,sunRise,sunSet,windSpeed,windDir, updateText,day;
     private ImageView image;
     private RadioButton updateBtn;
+    private Cursor cursor;
 
     public static String BASE_URL = "https://api.openweathermap.org/data/2.5/weather?q=";
     public static String KEY = "&APPID=8a8b70915fd021fff2707ceaef3dceb1&units=metric";
     public String GET_INFO;
     private HTTPHelper httpHelper;
     private Spinner format;
-    private int counter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +84,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         windLayout.setVisibility(View.INVISIBLE);
 
         httpHelper = new HTTPHelper();
-        GET_INFO = BASE_URL + bundle.get("town").toString() + KEY;
+        GET_INFO = BASE_URL + city + KEY;
         Log.d("URL", GET_INFO);
         tmp1 = findViewById(R.id.temp1);
         tmp2 = findViewById(R.id.temp2);
@@ -103,9 +103,9 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
 
         ContentResolver resolver = getContentResolver();
 
-        Cursor cursor = resolver.query(WeatherProvider.CONTENT_URI,null,"Name=?",new String[]{bundle.get("town").toString()},"Date ASC");
+        cursor = resolver.query(WeatherProvider.CONTENT_URI,null,"Name=?",new String[]{city},"Date ASC");
 
-        counter = 0;
+        int counter = 0;
 
         for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
             counter++;
@@ -116,14 +116,20 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         updateBtn.setOnClickListener(this);
         updateBtn.setChecked(false);
 
-        if(counter == 0){
+        if(cursor.getCount() == 0){
             updateText.setVisibility(View.INVISIBLE);
             updateBtn.setVisibility(View.INVISIBLE);
             getHTTPData();
         }else{
-            updateText.setVisibility(View.VISIBLE);
-            updateBtn.setVisibility(View.VISIBLE);
             cursor.moveToLast();
+            if(!cursor.getString(cursor.getColumnIndex("Date")).equals(dateStr)){
+                updateText.setVisibility(View.VISIBLE);
+                updateBtn.setVisibility(View.VISIBLE);
+            }else{
+                updateText.setVisibility(View.INVISIBLE);
+                updateBtn.setVisibility(View.INVISIBLE);
+            }
+
             day.setText(getString(R.string.dateText) + " " + cursor.getString(cursor.getColumnIndex("Date")));
             temp1  = getString(R.string.tempJson) + " " + Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature")));
             tmp1.setText(getString(R.string.tempJson) + " " + Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))));
@@ -272,18 +278,22 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
 
                     ContentResolver resolver = getContentResolver();
                     ContentValues values = new ContentValues();
+                    cursor = resolver.query(WeatherProvider.CONTENT_URI,null,"Name=?",new String[]{city},"Date ASC");
 
-                    values.put(WeatherDbHelper.COLUMN_DATE, dateStr);
-                    values.put(WeatherDbHelper.COLUMN_NAME, city);
-                    values.put(WeatherDbHelper.COLUMN_TEMPERATURE, Double.parseDouble(temperature.get("temp").toString()));
-                    values.put(WeatherDbHelper.COLUMN_PREASSURE, Integer.parseInt(temperature.get("pressure").toString()));
-                    values.put(WeatherDbHelper.COLUMN_HUMIDITY, Integer.parseInt(temperature.get("humidity").toString()));
-                    values.put(WeatherDbHelper.COLUMN_SUNRISE, sunrise);
-                    values.put(WeatherDbHelper.COLUMN_SUNSET, sunset);
-                    values.put(WeatherDbHelper.COLUMN_WIND_SPEED, Double.parseDouble(wind.get("speed").toString()));
-                    values.put(WeatherDbHelper.COLUMN_WIND_DIRECTION, windConverter(wind.getDouble("deg")));
-                    values.put(WeatherDbHelper.COLUMN_IMAGE_URL,icon);
-                    resolver.insert(WeatherProvider.CONTENT_URI, values);
+                    if(!dataExist(cursor,dateStr)){
+                        values.put(WeatherDbHelper.COLUMN_DATE, dateStr);
+                        values.put(WeatherDbHelper.COLUMN_NAME, city);
+                        values.put(WeatherDbHelper.COLUMN_TEMPERATURE, Double.parseDouble(temperature.get("temp").toString()));
+                        values.put(WeatherDbHelper.COLUMN_PREASSURE, Integer.parseInt(temperature.get("pressure").toString()));
+                        values.put(WeatherDbHelper.COLUMN_HUMIDITY, Integer.parseInt(temperature.get("humidity").toString()));
+                        values.put(WeatherDbHelper.COLUMN_SUNRISE, sunrise);
+                        values.put(WeatherDbHelper.COLUMN_SUNSET, sunset);
+                        values.put(WeatherDbHelper.COLUMN_WIND_SPEED, Double.parseDouble(wind.get("speed").toString()));
+                        values.put(WeatherDbHelper.COLUMN_WIND_DIRECTION, windConverter(wind.getDouble("deg")));
+                        values.put(WeatherDbHelper.COLUMN_IMAGE_URL,icon);
+                        resolver.insert(WeatherProvider.CONTENT_URI, values);
+                    }
+                    cursor.close();
 
                     runOnUiThread(new Runnable() {
                         @Override
@@ -305,5 +315,14 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
                 }
             }
         }).start();
+    }
+
+    protected boolean dataExist(Cursor cursor, String date){
+        for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            if (date.equals(cursor.getString(cursor.getColumnIndex("Date")))){
+                return true;
+            }
+        }
+        return false;
     }
 }
