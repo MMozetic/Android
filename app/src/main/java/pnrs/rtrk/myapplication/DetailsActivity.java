@@ -101,29 +101,6 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
 
         image = findViewById(R.id.sunImage);
 
-        format.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch (parent.getItemAtPosition(position).toString()){
-                    case "°C":
-                        String a = tmp1.getText().toString();
-                        String[] array = a.split(" ");
-
-                        break;
-                    default:
-                        String b = tmp1.getText().toString();
-                        String[] barray = b.split(" ");
-
-                        break;
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                tmp1.setText(temp1);
-            }
-        });
-
         ContentResolver resolver = getContentResolver();
 
         ContentValues values = new ContentValues();
@@ -161,6 +138,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
             updateBtn.setVisibility(View.VISIBLE);
             cursor.moveToLast();
             day.setText(getString(R.string.dateText) + " " + cursor.getString(cursor.getColumnIndex("Date")));
+            temp1  = getString(R.string.tempJson) + " " + Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature")));
             tmp1.setText(getString(R.string.tempJson) + " " + Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))));
             tmp2.setText(getString(R.string.preassureJson)+ " " + Integer.toString(cursor.getInt(cursor.getColumnIndex("Preassure"))) + " mbar");
             tmp3.setText(getString(R.string.humidityJson)+ " "  + Integer.toString(cursor.getInt(cursor.getColumnIndex("Humidity")))+ "%");
@@ -175,6 +153,25 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
 
         cursor.close();
 
+        format.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (parent.getItemAtPosition(position).toString()){
+                    case "°C":
+                        tmp1.setText(temp1);
+                        break;
+                    default:
+                        String[] array = temp1.split(" ");
+                        tmp1.setText(getString(R.string.tempJson) + " " + Double.toString(Double.parseDouble(array[1])*9/5+32));
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                tmp1.setText(temp1);
+            }
+        });
     }
 
     @Override
