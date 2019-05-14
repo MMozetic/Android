@@ -101,6 +101,29 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
 
         image = findViewById(R.id.sunImage);
 
+        format.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (parent.getItemAtPosition(position).toString()){
+                    case "°C":
+                        String a = tmp1.getText().toString();
+                        String[] array = a.split(" ");
+
+                        break;
+                    default:
+                        String b = tmp1.getText().toString();
+                        String[] barray = b.split(" ");
+
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                tmp1.setText(temp1);
+            }
+        });
+
         ContentResolver resolver = getContentResolver();
 
         ContentValues values = new ContentValues();
@@ -148,6 +171,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
             final String iconUrl = "http://openweathermap.org/img/w/" + cursor.getString(cursor.getColumnIndex("ImageUrl")) + ".png";
             Picasso.with(MyApplication.getAppContext()).load(iconUrl).into(image);
         }
+
 
         cursor.close();
 
@@ -288,25 +312,6 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
                             windSpeed.setText(wind1);
                             windDir.setText(wind2);
                             Picasso.with(MyApplication.getAppContext()).load(iconUrl).into(image);
-                            format.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                @Override
-                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                    switch (parent.getItemAtPosition(position).toString()){
-                                        case "°C":
-                                            tmp1.setText(temp1);
-                                            break;
-                                        default:
-                                            double temperature = Double.parseDouble(temp)*9/5 + 32;
-                                            tmp1.setText(getString(R.string.tempJson) + Double.toString(temperature));
-                                            break;
-                                    }
-                                }
-
-                                @Override
-                                public void onNothingSelected(AdapterView<?> parent) {
-                                    tmp1.setText(temp1);
-                                }
-                            });
                         }
                     });
                 }catch (JSONException e){
