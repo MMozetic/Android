@@ -2,6 +2,7 @@ package pnrs.rtrk.myapplication;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,8 +36,8 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
 
     private Button tempButton, sunButton, windButton;
     private LinearLayout tempLayout, sunLayout, windLayout;
-    private String temp1,temp2,temp3,sun1,sun2,wind1,wind2;
-    private TextView tmp1,tmp2,tmp3,sunRise,sunSet,windSpeed,windDir, updateText;
+    private String temp1,temp2,temp3,sun1,sun2,wind1,wind2, city, dateStr;
+    private TextView tmp1,tmp2,tmp3,sunRise,sunSet,windSpeed,windDir, updateText,day;
     private ImageView image;
     private RadioButton updateBtn;
 
@@ -55,15 +56,17 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         TextView town = findViewById(R.id.town);
         Bundle bundle = getIntent().getExtras();
 
-        TextView day = findViewById(R.id.day);
+        day = findViewById(R.id.day);
 
         Calendar c = Calendar.getInstance();
         SimpleDateFormat date = new SimpleDateFormat("dd/MMM/yyyy");
+        dateStr = date.format(c.getTime());
 
         //day.setText(getString(R.string.dayText) + " " + dayInSerbian());
-        day.setText(getString(R.string.dateText) + " " + date.format(c.getTime()));
+        day.setText(getString(R.string.dateText) + " " + dateStr);
 
-        town.setText(getString(R.string.locationText) + " " + bundle.get("town").toString());
+        city = bundle.get("town").toString();
+        town.setText(getString(R.string.locationText) + " " + city);
 
         tempButton = findViewById(R.id.temperatureButton);
         tempButton.setOnClickListener(this);
@@ -102,8 +105,8 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         ContentResolver resolver = getContentResolver();
 
         ContentValues values = new ContentValues();
-        values.put(WeatherDbHelper.COLUMN_DATE,"10/05/2019");
-        values.put(WeatherDbHelper.COLUMN_NAME,bundle.get("town").toString());
+        values.put(WeatherDbHelper.COLUMN_DATE,"10/May/2019");
+        values.put(WeatherDbHelper.COLUMN_NAME,"Novi Sad");
         values.put(WeatherDbHelper.COLUMN_TEMPERATURE,10);
         values.put(WeatherDbHelper.COLUMN_PREASSURE,1000);
         values.put(WeatherDbHelper.COLUMN_HUMIDITY,53);
@@ -113,7 +116,6 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         values.put(WeatherDbHelper.COLUMN_WIND_DIRECTION,"N");
         resolver.insert(WeatherProvider.CONTENT_URI,values);
 
-
         Cursor cursor = resolver.query(WeatherProvider.CONTENT_URI,null,"Name=?",new String[]{bundle.get("town").toString()},null);
 
         counter = 0;
@@ -122,11 +124,19 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
             counter++;
         }
 
-        //day.setText(String.valueOf(counter));
+
         if(counter == 0){
-            Toast.makeText(this, "Grad nije u bazi!",Toast.LENGTH_SHORT).show();
-        }else{
             getHTTPData();
+        }else{
+            cursor.moveToLast();
+            day.setText(getString(R.string.dateText) + " " + cursor.getString(cursor.getColumnIndex("Date")));
+            tmp1.setText(getString(R.string.tempJson) + " " + Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))));
+            tmp2.setText(getString(R.string.preassureJson)+ " " + Integer.toString(cursor.getInt(cursor.getColumnIndex("Preassure"))) + " mbar");
+            tmp3.setText(getString(R.string.humidityJson)+ " "  + Integer.toString(cursor.getInt(cursor.getColumnIndex("Humidity")))+ "%");
+            sunRise.setText(getString(R.string.sun1Json)+ " "  + cursor.getString(cursor.getColumnIndex("Sunrise"))+ getString(R.string.suriseText2));
+            sunSet.setText(getString(R.string.sun2Json)+ " "  + cursor.getString(cursor.getColumnIndex("Sunset")) + getString(R.string.sunsetText2));
+            windSpeed.setText(getString(R.string.wind1Json)+ " "  + Double.toString(cursor.getDouble(cursor.getColumnIndex("WindSpeed")))+ " m/s");
+            windDir.setText(getString(R.string.wind2Json)+ " "  + cursor.getString(cursor.getColumnIndex("WindDirection")));
         }
 
         cursor.close();
@@ -166,6 +176,8 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
 
             case R.id.updateRadioBtn:
                 getHTTPData();
+                day.setText(getString(R.string.dateText) + " " + dateStr);
+
                 updateText.setVisibility(View.INVISIBLE);
                 updateBtn.setVisibility(View.INVISIBLE);
                 updateBtn.setChecked(false);
@@ -236,12 +248,28 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
                     Date d1 = new Date(s1);
                     Date d2 = new Date(s2);
                     Locale locale = new Locale.Builder().setLanguage("sr").setRegion("RS").setScript("Latn").build();
-                    sun1 = getString(R.string.sun1Json)+ " "  + new SimpleDateFormat("hh:mma ", locale).format(d1);
-                    sun2 = getString(R.string.sun2Json)+ " "  + new SimpleDateFormat("hh:mma ",locale).format(d2);
+                    String sunrise = new SimpleDateFormat("hh:mma ", locale).format(d1);
+                    String sunset = new SimpleDateFormat("hh:mma ",locale).format(d2);
+                    sun1 = getString(R.string.sun1Json)+ " "  + sunrise;
+                    sun2 = getString(R.string.sun2Json)+ " "  + sunset;
 
                     JSONObject wind = jsonObject.getJSONObject("wind");
                     wind1 = getString(R.string.wind1Json)+ " "  + wind.get("speed").toString() + " m/s";
                     wind2 = getString(R.string.wind2Json)+ " "  + windConverter(wind.getDouble("deg"));
+
+                    ContentResolver resolver = getContentResolver();
+                    ContentValues values = new ContentValues();
+
+                    values.put(WeatherDbHelper.COLUMN_DATE, dateStr);
+                    values.put(WeatherDbHelper.COLUMN_NAME, city);
+                    values.put(WeatherDbHelper.COLUMN_TEMPERATURE, Double.parseDouble(temperature.get("temp").toString()));
+                    values.put(WeatherDbHelper.COLUMN_PREASSURE, Integer.parseInt(temperature.get("pressure").toString()));
+                    values.put(WeatherDbHelper.COLUMN_HUMIDITY, Integer.parseInt(temperature.get("humidity").toString()));
+                    values.put(WeatherDbHelper.COLUMN_SUNRISE, sunrise);
+                    values.put(WeatherDbHelper.COLUMN_SUNSET, sunset);
+                    values.put(WeatherDbHelper.COLUMN_WIND_SPEED, Double.parseDouble(wind.get("speed").toString()));
+                    values.put(WeatherDbHelper.COLUMN_WIND_DIRECTION, windConverter(wind.getDouble("deg")));
+                    resolver.insert(WeatherProvider.CONTENT_URI, values);
 
                     runOnUiThread(new Runnable() {
                         @Override
