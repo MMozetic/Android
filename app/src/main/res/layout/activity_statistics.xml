@@ -486,6 +486,7 @@
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:clickable="true"
+            android:src="@drawable/ic_snowflake"
             android:id="@+id/snowImage"/>
 
         <ImageView
