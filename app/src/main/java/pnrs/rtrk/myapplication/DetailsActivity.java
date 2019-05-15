@@ -62,8 +62,8 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         SimpleDateFormat date = new SimpleDateFormat("dd/MMM/yyyy");
         dateStr = date.format(c.getTime());
 
-        //day.setText(getString(R.string.dayText) + " " + dayInSerbian());
-        day.setText(getString(R.string.dateText) + " " + dateStr);
+        day.setText(getString(R.string.dayText) + " " + dayInSerbian());
+        //day.setText(getString(R.string.dateText) + " " + dateStr);
 
         city = bundle.get("town").toString();
         town.setText(getString(R.string.locationText) + " " + city);
@@ -299,6 +299,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
                         values.put(WeatherDbHelper.COLUMN_WIND_SPEED, Double.parseDouble(wind.get("speed").toString()));
                         values.put(WeatherDbHelper.COLUMN_WIND_DIRECTION, windConverter(wind.getDouble("deg")));
                         values.put(WeatherDbHelper.COLUMN_IMAGE_URL,icon);
+                        values.put(WeatherDbHelper.COLUMN_DAY,dayInSerbian());
                         resolver.insert(WeatherProvider.CONTENT_URI, values);
                     }
                     cursor.close();

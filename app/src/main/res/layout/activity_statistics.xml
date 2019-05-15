@@ -95,6 +95,7 @@
                 android:fontFamily="@string/fontText"
                 android:textSize="@dimen/buttonText"
                 android:gravity="center_vertical"
+                android:id="@+id/ponedeljak"
                 android:text="Ponedeljak"/>
 
             <TextView
@@ -141,6 +142,7 @@
                 android:fontFamily="@string/fontText"
                 android:textSize="@dimen/buttonText"
                 android:gravity="center_vertical"
+                android:id="@+id/utorak"
                 android:text="Utorak"/>
 
             <TextView
@@ -186,6 +188,7 @@
                 android:fontFamily="@string/fontText"
                 android:textSize="@dimen/buttonText"
                 android:gravity="center_vertical"
+                android:id="@+id/sreda"
                 android:text="Sreda"/>
 
             <TextView
@@ -231,6 +234,7 @@
                 android:fontFamily="@string/fontText"
                 android:textSize="@dimen/buttonText"
                 android:gravity="center_vertical"
+                android:id="@+id/četvrtak"
                 android:text="Četvrtak"/>
 
             <TextView
@@ -276,6 +280,7 @@
                 android:fontFamily="@string/fontText"
                 android:textSize="@dimen/buttonText"
                 android:gravity="center_vertical"
+                android:id="@+id/petak"
                 android:text="Petak"/>
 
             <TextView
@@ -321,6 +326,7 @@
                 android:fontFamily="@string/fontText"
                 android:textSize="@dimen/buttonText"
                 android:gravity="center_vertical"
+                android:id="@+id/subota"
                 android:text="Subota"/>
 
             <TextView
@@ -366,6 +372,7 @@
                 android:fontFamily="@string/fontText"
                 android:textSize="@dimen/buttonText"
                 android:gravity="center_vertical"
+                android:id="@+id/nedelja"
                 android:text="Nedelja"/>
 
             <TextView
