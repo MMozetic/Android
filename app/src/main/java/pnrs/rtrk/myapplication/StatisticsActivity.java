@@ -10,7 +10,6 @@ import java.util.Calendar;
 public class StatisticsActivity extends AppCompatActivity {
 
     private String city, day, date;
-    private Calendar calendar;
     private TextView t1,t2,t3;
 
     @Override
@@ -21,10 +20,7 @@ public class StatisticsActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         city = bundle.get("town").toString();
         day = bundle.get("day").toString();
-        calendar = (Calendar) bundle.get("calendar");
-
-        SimpleDateFormat d = new SimpleDateFormat("dd/MMM/yyyy");
-        date = d.format(calendar.getTime());
+        date =  bundle.get("date").toString();
 
         t1 = findViewById(R.id.cityText);
         t2 = findViewById(R.id.dayText);

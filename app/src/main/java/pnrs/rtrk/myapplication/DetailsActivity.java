@@ -204,8 +204,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
                 Intent switchActivity = new Intent(this, StatisticsActivity.class);
                 switchActivity.putExtra("town", city);
                 switchActivity.putExtra("day", dayInSerbian());
-                Calendar calendar = Calendar.getInstance();
-                switchActivity.putExtra("calendar", calendar);
+                switchActivity.putExtra("date", dateStr);
                 this.startActivity(switchActivity);
 
                 break;
