@@ -89,13 +89,13 @@ public class StatisticsActivity extends AppCompatActivity {
 
         if(day.equals("ponedeljak")){
             ponedeljak.setTypeface(Typeface.DEFAULT_BOLD);
-            ponedeljak.setTextSize(20);
+            ponedeljak.setTextSize(15);
             ponedeljakTemp.setTypeface(Typeface.DEFAULT_BOLD);
-            ponedeljakTemp.setTextSize(20);
+            ponedeljakTemp.setTextSize(15);
             ponedeljakPritisak.setTypeface(Typeface.DEFAULT_BOLD);
-            ponedeljakPritisak.setTextSize(20);
+            ponedeljakPritisak.setTextSize(15);
             ponedeljakVlaznost.setTypeface(Typeface.DEFAULT_BOLD);
-            ponedeljakVlaznost.setTextSize(20);
+            ponedeljakVlaznost.setTextSize(15);
         }else if(day.equals("utorak")){
             utorak.setTypeface(Typeface.DEFAULT_BOLD);
             utorak.setTextSize(15);
