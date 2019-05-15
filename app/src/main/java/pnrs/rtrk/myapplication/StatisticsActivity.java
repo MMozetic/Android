@@ -46,13 +46,60 @@ public class StatisticsActivity extends AppCompatActivity {
         snowImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imageEdit.setText("Hladnooo");
+                ContentResolver resolver = getContentResolver();
+                Cursor cursor = resolver.query(WeatherProvider.CONTENT_URI, null, "Name=?",new String[]{city},"Date ASC");
+
+                String edit = "";
+
+                if(cursor.getCount()<2){
+                    cursor.moveToFirst();
+                    if(cursor.getDouble(cursor.getColumnIndex("Temperature"))<=10.0){
+                        edit += cursor.getString(cursor.getColumnIndex("Day")) + " - ";
+                        edit += Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))) + "\n";
+                    }
+                }else{
+                    for(cursor.moveToLast();!cursor.isBeforeFirst();cursor.moveToPrevious()){
+                        if(cursor.getString(cursor.getColumnIndex("Day")).equals("nedelja")){
+                            break;
+                        }else if(cursor.getDouble(cursor.getColumnIndex("Temperature"))<=10.0){
+                                edit += cursor.getString(cursor.getColumnIndex("Day")) + " - ";
+                                edit += Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))) + "\n";
+                            }
+
+                    }
+                }
+
+                cursor.close();
+                imageEdit.setText(edit);
             }
         });
         sunImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imageEdit.setText("Toplooo");
+                ContentResolver resolver = getContentResolver();
+                Cursor cursor = resolver.query(WeatherProvider.CONTENT_URI, null, "Name=?",new String[]{city},"Date ASC");
+
+                String edit = "";
+
+                if(cursor.getCount()<2){
+                    cursor.moveToFirst();
+                    if(cursor.getDouble(cursor.getColumnIndex("Temperature"))>=10.0){
+                        edit += cursor.getString(cursor.getColumnIndex("Day")) + " - ";
+                        edit += Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))) + "\n";
+                    }
+                }else{
+                    for(cursor.moveToLast();!cursor.isBeforeFirst();cursor.moveToPrevious()){
+                        if(cursor.getString(cursor.getColumnIndex("Day")).equals("nedelja")){
+                            break;
+                        }else if(cursor.getDouble(cursor.getColumnIndex("Temperature"))>=10.0){
+                                edit += cursor.getString(cursor.getColumnIndex("Day")) + " - ";
+                                edit += Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))) + "\n";
+                            }
+                    }
+                }
+
+                cursor.close();
+                imageEdit.setText(edit);
             }
         });
 
@@ -107,13 +154,13 @@ public class StatisticsActivity extends AppCompatActivity {
 
         if(day.equals("ponedeljak")){
             ponedeljak.setTypeface(Typeface.DEFAULT_BOLD);
-            ponedeljak.setTextSize(15);
+            ponedeljak.setTextSize(20);
             ponedeljakTemp.setTypeface(Typeface.DEFAULT_BOLD);
-            ponedeljakTemp.setTextSize(15);
+            ponedeljakTemp.setTextSize(20);
             ponedeljakPritisak.setTypeface(Typeface.DEFAULT_BOLD);
-            ponedeljakPritisak.setTextSize(15);
+            ponedeljakPritisak.setTextSize(20);
             ponedeljakVlaznost.setTypeface(Typeface.DEFAULT_BOLD);
-            ponedeljakVlaznost.setTextSize(15);
+            ponedeljakVlaznost.setTextSize(20);
         }else if(day.equals("utorak")){
             utorak.setTypeface(Typeface.DEFAULT_BOLD);
             utorak.setTextSize(15);
@@ -184,11 +231,8 @@ public class StatisticsActivity extends AppCompatActivity {
             }
         }
 
-        /*or(cursor.moveToFirst();!cursor.isAfterLast();cursor.moveToFirst()){
-            printData(cursor);
-        }*/
-
         cursor.close();
+
     }
 
     private void printData(Cursor cursor){
