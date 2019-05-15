@@ -105,12 +105,6 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
 
         cursor = resolver.query(WeatherProvider.CONTENT_URI,null,"Name=?",new String[]{city},"Date ASC");
 
-        int counter = 0;
-
-        for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-            counter++;
-        }
-
         updateText = findViewById(R.id.updateText);
         updateBtn = findViewById(R.id.updateRadioBtn);
         updateBtn.setOnClickListener(this);
