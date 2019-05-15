@@ -48,32 +48,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
             }
         });
 
-        ContentResolver resolver = getContentResolver();
-        Cursor cursor = resolver.query(WeatherProvider.CONTENT_URI,null,"Name=?",new String[]{"Novi Sad"},"Date ASC");
-
-        boolean ind = false;
-        for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-            if ("10/May/2019".equals(cursor.getString(cursor.getColumnIndex("Date")))){
-                ind = true;
-                break;
-            }
-        }
-        cursor.close();
-
-        if(!ind){
-            ContentValues values = new ContentValues();
-            values.put(WeatherDbHelper.COLUMN_DATE,"10/May/2019");
-            values.put(WeatherDbHelper.COLUMN_NAME,"Novi Sad");
-            values.put(WeatherDbHelper.COLUMN_TEMPERATURE,10);
-            values.put(WeatherDbHelper.COLUMN_PREASSURE,1000);
-            values.put(WeatherDbHelper.COLUMN_HUMIDITY,53);
-            values.put(WeatherDbHelper.COLUMN_SUNRISE,"05:00pre podne");
-            values.put(WeatherDbHelper.COLUMN_SUNSET,"08:00popodne");
-            values.put(WeatherDbHelper.COLUMN_WIND_SPEED,4.3);
-            values.put(WeatherDbHelper.COLUMN_WIND_DIRECTION,"N");
-            values.put(WeatherDbHelper.COLUMN_IMAGE_URL, "09d");
-            resolver.insert(WeatherProvider.CONTENT_URI,values);
-        }
+        initDataBase();
 
     }
 
@@ -97,5 +72,147 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
             default:
                 break;
         }
+    }
+
+    protected boolean dataExist(Cursor cursor, String date){
+        for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            if (date.equals(cursor.getString(cursor.getColumnIndex("Date")))){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    protected void initDataBase(){
+        ContentResolver resolver = getContentResolver();
+        Cursor cursor = resolver.query(WeatherProvider.CONTENT_URI,null,"Name=?",new String[]{"Novi Sad"},"Date ASC");
+
+        if(!dataExist(cursor,"11/May/2019")){
+            ContentValues values = new ContentValues();
+            values.put(WeatherDbHelper.COLUMN_DATE,"11/May/2019");
+            values.put(WeatherDbHelper.COLUMN_NAME,"Novi Sad");
+            values.put(WeatherDbHelper.COLUMN_TEMPERATURE,10);
+            values.put(WeatherDbHelper.COLUMN_PREASSURE,1000);
+            values.put(WeatherDbHelper.COLUMN_HUMIDITY,53);
+            values.put(WeatherDbHelper.COLUMN_SUNRISE,"05:00pre podne");
+            values.put(WeatherDbHelper.COLUMN_SUNSET,"08:00popodne");
+            values.put(WeatherDbHelper.COLUMN_WIND_SPEED,4.3);
+            values.put(WeatherDbHelper.COLUMN_WIND_DIRECTION,"N");
+            values.put(WeatherDbHelper.COLUMN_IMAGE_URL, "09d");
+            resolver.insert(WeatherProvider.CONTENT_URI,values);
+        }
+
+        if(!dataExist(cursor,"12/May/2019")){
+            ContentValues values = new ContentValues();
+            values.put(WeatherDbHelper.COLUMN_DATE,"12/May/2019");
+            values.put(WeatherDbHelper.COLUMN_NAME,"Novi Sad");
+            values.put(WeatherDbHelper.COLUMN_TEMPERATURE,12.3);
+            values.put(WeatherDbHelper.COLUMN_PREASSURE,1029);
+            values.put(WeatherDbHelper.COLUMN_HUMIDITY,75);
+            values.put(WeatherDbHelper.COLUMN_SUNRISE,"05:20pre podne");
+            values.put(WeatherDbHelper.COLUMN_SUNSET,"08:12popodne");
+            values.put(WeatherDbHelper.COLUMN_WIND_SPEED,3.1);
+            values.put(WeatherDbHelper.COLUMN_WIND_DIRECTION,"S");
+            values.put(WeatherDbHelper.COLUMN_IMAGE_URL, "09d");
+            resolver.insert(WeatherProvider.CONTENT_URI,values);
+        }
+
+        if(!dataExist(cursor,"13/May/2019")){
+            ContentValues values = new ContentValues();
+            values.put(WeatherDbHelper.COLUMN_DATE,"13/May/2019");
+            values.put(WeatherDbHelper.COLUMN_NAME,"Novi Sad");
+            values.put(WeatherDbHelper.COLUMN_TEMPERATURE,15.5);
+            values.put(WeatherDbHelper.COLUMN_PREASSURE,1033);
+            values.put(WeatherDbHelper.COLUMN_HUMIDITY,65);
+            values.put(WeatherDbHelper.COLUMN_SUNRISE,"05:15pre podne");
+            values.put(WeatherDbHelper.COLUMN_SUNSET,"08:10popodne");
+            values.put(WeatherDbHelper.COLUMN_WIND_SPEED,5.1);
+            values.put(WeatherDbHelper.COLUMN_WIND_DIRECTION,"N-E");
+            values.put(WeatherDbHelper.COLUMN_IMAGE_URL, "09d");
+            resolver.insert(WeatherProvider.CONTENT_URI,values);
+        }
+
+        if(!dataExist(cursor,"14/May/2019")){
+            ContentValues values = new ContentValues();
+            values.put(WeatherDbHelper.COLUMN_DATE,"14/May/2019");
+            values.put(WeatherDbHelper.COLUMN_NAME,"Novi Sad");
+            values.put(WeatherDbHelper.COLUMN_TEMPERATURE,7.7);
+            values.put(WeatherDbHelper.COLUMN_PREASSURE,1042);
+            values.put(WeatherDbHelper.COLUMN_HUMIDITY,82);
+            values.put(WeatherDbHelper.COLUMN_SUNRISE,"05:25pre podne");
+            values.put(WeatherDbHelper.COLUMN_SUNSET,"07:53popodne");
+            values.put(WeatherDbHelper.COLUMN_WIND_SPEED,2.0);
+            values.put(WeatherDbHelper.COLUMN_WIND_DIRECTION,"W");
+            values.put(WeatherDbHelper.COLUMN_IMAGE_URL, "09d");
+            resolver.insert(WeatherProvider.CONTENT_URI,values);
+        }
+
+        cursor.close();
+
+
+        cursor = resolver.query(WeatherProvider.CONTENT_URI,null,"Name=?",new String[]{"Belgrade"},"Date ASC");
+
+        if(!dataExist(cursor,"11/May/2019")){
+            ContentValues values = new ContentValues();
+            values.put(WeatherDbHelper.COLUMN_DATE,"11/May/2019");
+            values.put(WeatherDbHelper.COLUMN_NAME,"Belgrade");
+            values.put(WeatherDbHelper.COLUMN_TEMPERATURE,11.3);
+            values.put(WeatherDbHelper.COLUMN_PREASSURE,1008);
+            values.put(WeatherDbHelper.COLUMN_HUMIDITY,32);
+            values.put(WeatherDbHelper.COLUMN_SUNRISE,"05:09pre podne");
+            values.put(WeatherDbHelper.COLUMN_SUNSET,"08:13popodne");
+            values.put(WeatherDbHelper.COLUMN_WIND_SPEED,3.8);
+            values.put(WeatherDbHelper.COLUMN_WIND_DIRECTION,"N-E");
+            values.put(WeatherDbHelper.COLUMN_IMAGE_URL, "10d");
+            resolver.insert(WeatherProvider.CONTENT_URI,values);
+        }
+
+        if(!dataExist(cursor,"12/May/2019")){
+            ContentValues values = new ContentValues();
+            values.put(WeatherDbHelper.COLUMN_DATE,"12/May/2019");
+            values.put(WeatherDbHelper.COLUMN_NAME,"Belgrade");
+            values.put(WeatherDbHelper.COLUMN_TEMPERATURE,16.0);
+            values.put(WeatherDbHelper.COLUMN_PREASSURE,1022);
+            values.put(WeatherDbHelper.COLUMN_HUMIDITY,81);
+            values.put(WeatherDbHelper.COLUMN_SUNRISE,"05:27pre podne");
+            values.put(WeatherDbHelper.COLUMN_SUNSET,"08:16popodne");
+            values.put(WeatherDbHelper.COLUMN_WIND_SPEED,4.9);
+            values.put(WeatherDbHelper.COLUMN_WIND_DIRECTION,"S-W");
+            values.put(WeatherDbHelper.COLUMN_IMAGE_URL, "10d");
+            resolver.insert(WeatherProvider.CONTENT_URI,values);
+        }
+
+        if(!dataExist(cursor,"13/May/2019")){
+            ContentValues values = new ContentValues();
+            values.put(WeatherDbHelper.COLUMN_DATE,"13/May/2019");
+            values.put(WeatherDbHelper.COLUMN_NAME,"Belgrade");
+            values.put(WeatherDbHelper.COLUMN_TEMPERATURE,11.5);
+            values.put(WeatherDbHelper.COLUMN_PREASSURE,1018);
+            values.put(WeatherDbHelper.COLUMN_HUMIDITY,61);
+            values.put(WeatherDbHelper.COLUMN_SUNRISE,"05:31pre podne");
+            values.put(WeatherDbHelper.COLUMN_SUNSET,"08:15popodne");
+            values.put(WeatherDbHelper.COLUMN_WIND_SPEED,6.3);
+            values.put(WeatherDbHelper.COLUMN_WIND_DIRECTION,"N");
+            values.put(WeatherDbHelper.COLUMN_IMAGE_URL, "10d");
+            resolver.insert(WeatherProvider.CONTENT_URI,values);
+        }
+
+        if(!dataExist(cursor,"14/May/2019")){
+            ContentValues values = new ContentValues();
+            values.put(WeatherDbHelper.COLUMN_DATE,"14/May/2019");
+            values.put(WeatherDbHelper.COLUMN_NAME,"Belgrade");
+            values.put(WeatherDbHelper.COLUMN_TEMPERATURE,8.5);
+            values.put(WeatherDbHelper.COLUMN_PREASSURE,1001);
+            values.put(WeatherDbHelper.COLUMN_HUMIDITY,55);
+            values.put(WeatherDbHelper.COLUMN_SUNRISE,"05:36pre podne");
+            values.put(WeatherDbHelper.COLUMN_SUNSET,"07:48popodne");
+            values.put(WeatherDbHelper.COLUMN_WIND_SPEED,4.3);
+            values.put(WeatherDbHelper.COLUMN_WIND_DIRECTION,"E");
+            values.put(WeatherDbHelper.COLUMN_IMAGE_URL, "10d");
+            resolver.insert(WeatherProvider.CONTENT_URI,values);
+        }
+
+        cursor.close();
+
     }
 }
