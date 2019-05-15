@@ -34,7 +34,7 @@ import pnrs.rtrk.MyApplication;
 
 public class DetailsActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private Button tempButton, sunButton, windButton;
+    private Button tempButton, sunButton, windButton, statsButton;
     private LinearLayout tempLayout, sunLayout, windLayout;
     private String temp1,temp2,temp3,sun1,sun2,wind1,wind2, city, dateStr;
     private TextView tmp1,tmp2,tmp3,sunRise,sunSet,windSpeed,windDir, updateText,day;
@@ -159,6 +159,9 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
                 tmp1.setText(temp1);
             }
         });
+
+        statsButton = findViewById(R.id.statisticsBtn);
+        statsButton.setOnClickListener(this);
     }
 
     @Override
@@ -196,6 +199,18 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
                 updateBtn.setChecked(false);
 
                 break;
+
+            case R.id.statisticsBtn:
+                Intent switchActivity = new Intent(this, StatisticsActivity.class);
+                switchActivity.putExtra("town", city);
+                switchActivity.putExtra("day", dayInSerbian());
+                Calendar calendar = Calendar.getInstance();
+                switchActivity.putExtra("calendar", calendar);
+                this.startActivity(switchActivity);
+
+                break;
+
+            default:
         }
     }
 

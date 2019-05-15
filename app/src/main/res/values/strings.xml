@@ -32,6 +32,7 @@
     <string name="dateText">Datum:</string>
     <string name="suriseText2">pre podne</string>
     <string name="sunsetText2">popodne</string>
+    <string name="statsBtn">Statistika</string>
 
     <string-array name="formats">
         <item>°C</item>

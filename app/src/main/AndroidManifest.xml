@@ -12,11 +12,13 @@
         android:roundIcon="@drawable/ic_umbrella"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".StatisticsActivity"></activity>
+
         <provider
             android:name=".WeatherProvider"
             android:authorities="pnrs.rtrk.myapplication"
             android:enabled="true"
-            android:exported="true"></provider>
+            android:exported="true" />
 
         <activity android:name=".DetailsActivity" />
         <activity android:name=".MainActivity">
