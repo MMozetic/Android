@@ -33,6 +33,7 @@
     <string name="suriseText2">pre podne</string>
     <string name="sunsetText2">popodne</string>
     <string name="statsBtn">Statistika</string>
+    <string name="poslednja_nedelja">Poslednja nedelja:</string>
 
     <string-array name="formats">
         <item>°C</item>

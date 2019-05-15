@@ -9,18 +9,499 @@
     android:orientation="vertical">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:layout_marginLeft="@dimen/marginLeft"
+        android:fontFamily="@string/fontText"
+        android:textSize="40sp"
+        android:gravity="center_vertical"
         android:id="@+id/cityText"/>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/dayText"/>
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="@dimen/marginLeft"
+        android:fontFamily="@string/fontText"
+        android:textSize="@dimen/myFontSize"
+        android:gravity="center_vertical"
+        android:text="@string/poslednja_nedelja"/>
+
+    <!-- Tabela -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:layout_marginLeft="@dimen/marginLeft"
+        android:orientation="vertical">
+
+        <!-- Prva vrsta -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:fontFamily="@string/fontButton"
+                android:textSize="@dimen/buttonText"
+                android:gravity="center_vertical"
+                android:text="Dan"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:fontFamily="@string/fontButton"
+                android:textSize="@dimen/buttonText"
+                android:gravity="center|center"
+                android:text="Temperatura"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:fontFamily="@string/fontButton"
+                android:textSize="@dimen/buttonText"
+                android:gravity="center"
+                android:text="Pritisak"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:fontFamily="@string/fontButton"
+                android:textSize="@dimen/buttonText"
+                android:gravity="center"
+                android:text="Vlažnost vazduha"/>
+
+        </LinearLayout>
+
+        <!-- Ponedeljak -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:fontFamily="@string/fontText"
+                android:textSize="@dimen/buttonText"
+                android:gravity="center_vertical"
+                android:text="Ponedeljak"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:fontFamily="@string/fontText"
+                android:textSize="@dimen/buttonText"
+                android:gravity="center|center"
+                android:id="@+id/ponedeljakTemp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:fontFamily="@string/fontText"
+                android:textSize="@dimen/buttonText"
+                android:gravity="center"
+                android:id="@+id/ponedeljakPritisak" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:fontFamily="@string/fontText"
+                android:textSize="@dimen/buttonText"
+                android:gravity="center"
+                android:id="@+id/ponedeljakVlaznost"/>
+
+        </LinearLayout>
+
+
+        <!-- Utorak -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:fontFamily="@string/fontText"
+                android:textSize="@dimen/buttonText"
+                android:gravity="center_vertical"
+                android:text="Utorak"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:fontFamily="@string/fontText"
+                android:textSize="@dimen/buttonText"
+                android:gravity="center|center"
+                android:id="@+id/utorakTemp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:fontFamily="@string/fontText"
+                android:textSize="@dimen/buttonText"
+                android:gravity="center"
+                android:id="@+id/utorakPritisak" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:fontFamily="@string/fontText"
+                android:textSize="@dimen/buttonText"
+                android:gravity="center"
+                android:id="@+id/utorakVlaznost"/>
+
+        </LinearLayout>
+
+        <!-- Sreda -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:fontFamily="@string/fontText"
+                android:textSize="@dimen/buttonText"
+                android:gravity="center_vertical"
+                android:text="Sreda"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:fontFamily="@string/fontText"
+                android:textSize="@dimen/buttonText"
+                android:gravity="center|center"
+                android:id="@+id/sredaTemp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:fontFamily="@string/fontText"
+                android:textSize="@dimen/buttonText"
+                android:gravity="center"
+                android:id="@+id/sredaPritisak" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:fontFamily="@string/fontText"
+                android:textSize="@dimen/buttonText"
+                android:gravity="center"
+                android:id="@+id/sredaVlaznost"/>
+
+        </LinearLayout>
+
+        <!-- Ponedeljak -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:fontFamily="@string/fontText"
+                android:textSize="@dimen/buttonText"
+                android:gravity="center_vertical"
+                android:text="Četvrtak"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:fontFamily="@string/fontText"
+                android:textSize="@dimen/buttonText"
+                android:gravity="center|center"
+                android:id="@+id/četvrtakTemp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:fontFamily="@string/fontText"
+                android:textSize="@dimen/buttonText"
+                android:gravity="center"
+                android:id="@+id/četvrtakPritisak" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:fontFamily="@string/fontText"
+                android:textSize="@dimen/buttonText"
+                android:gravity="center"
+                android:id="@+id/četvrtakVlaznost"/>
+
+        </LinearLayout>
+
+        <!-- Petak -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:fontFamily="@string/fontText"
+                android:textSize="@dimen/buttonText"
+                android:gravity="center_vertical"
+                android:text="Petak"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:fontFamily="@string/fontText"
+                android:textSize="@dimen/buttonText"
+                android:gravity="center|center"
+                android:id="@+id/petakTemp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:fontFamily="@string/fontText"
+                android:textSize="@dimen/buttonText"
+                android:gravity="center"
+                android:id="@+id/petakPritisak" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:fontFamily="@string/fontText"
+                android:textSize="@dimen/buttonText"
+                android:gravity="center"
+                android:id="@+id/petakVlaznost"/>
+
+        </LinearLayout>
+
+        <!-- Subota -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:fontFamily="@string/fontText"
+                android:textSize="@dimen/buttonText"
+                android:gravity="center_vertical"
+                android:text="Subota"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:fontFamily="@string/fontText"
+                android:textSize="@dimen/buttonText"
+                android:gravity="center|center"
+                android:id="@+id/subotaTemp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:fontFamily="@string/fontText"
+                android:textSize="@dimen/buttonText"
+                android:gravity="center"
+                android:id="@+id/subotaPritisak" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:fontFamily="@string/fontText"
+                android:textSize="@dimen/buttonText"
+                android:gravity="center"
+                android:id="@+id/subotaVlaznost"/>
+
+        </LinearLayout>
+
+        <!-- Nedelja -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:fontFamily="@string/fontText"
+                android:textSize="@dimen/buttonText"
+                android:gravity="center_vertical"
+                android:text="Nedelja"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:fontFamily="@string/fontText"
+                android:textSize="@dimen/buttonText"
+                android:gravity="center|center"
+                android:id="@+id/nedeljaTemp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:fontFamily="@string/fontText"
+                android:textSize="@dimen/buttonText"
+                android:gravity="center"
+                android:id="@+id/nedeljaPritisak" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:fontFamily="@string/fontText"
+                android:textSize="@dimen/buttonText"
+                android:gravity="center"
+                android:id="@+id/nedeljaVlaznost"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Min Temp-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="@dimen/marginLeft"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:fontFamily="@string/fontButton"
+            android:textSize="@dimen/buttonText"
+            android:gravity="center_vertical"
+            android:text="Min temperatura:"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:fontFamily="@string/fontButton"
+            android:textSize="@dimen/buttonText"
+            android:gravity="center"
+            android:id="@+id/minDan"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:fontFamily="@string/fontButton"
+            android:textSize="@dimen/buttonText"
+            android:gravity="center"
+            android:id="@+id/minTemp"/>
+
+    </LinearLayout>
+
+    <!-- Min Temp-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="@dimen/marginLeft"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:fontFamily="@string/fontButton"
+            android:textSize="@dimen/buttonText"
+            android:gravity="center_vertical"
+            android:text="Max temperatura:"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:fontFamily="@string/fontButton"
+            android:textSize="@dimen/buttonText"
+            android:gravity="center"
+            android:id="@+id/maxDan"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:fontFamily="@string/fontButton"
+            android:textSize="@dimen/buttonText"
+            android:gravity="center"
+            android:id="@+id/maxTemp"/>
+
+    </LinearLayout>
+
+
+    <!-- Slike -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:id="@+id/snowImage"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:src="@drawable/ic_sun"
+            android:id="@+id/sunImage"/>
+
+    </LinearLayout>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/dateText"/>
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:id="@+id/imageEdit"/>
 
 </LinearLayout>

@@ -6,4 +6,5 @@
     <dimen name="marginTop">15sp</dimen>
     <dimen name="myImageWidth">130sp</dimen>
     <dimen name="myImageHeight">130sp</dimen>
+    <dimen name="marginLeft">20sp</dimen>
 </resources>
