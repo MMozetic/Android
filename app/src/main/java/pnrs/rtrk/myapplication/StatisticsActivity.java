@@ -55,6 +55,7 @@ public class StatisticsActivity extends AppCompatActivity {
                 imageEdit.setText("Toplooo");
             }
         });
+
         cityView.setText(city);
 
         minDan = findViewById(R.id.minDan);
@@ -203,4 +204,6 @@ public class StatisticsActivity extends AppCompatActivity {
         }
 
     }
+
+
 }
