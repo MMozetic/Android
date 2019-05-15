@@ -62,8 +62,8 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         SimpleDateFormat date = new SimpleDateFormat("dd/MMM/yyyy");
         dateStr = date.format(c.getTime());
 
-        day.setText(getString(R.string.dayText) + " " + dayInSerbian());
-        //day.setText(getString(R.string.dateText) + " " + dateStr);
+        //day.setText(getString(R.string.dayText) + " " + dayInSerbian());
+        day.setText(getString(R.string.dateText) + " " + dateStr);
 
         city = bundle.get("town").toString();
         town.setText(getString(R.string.locationText) + " " + city);

@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                 return true;
             }
         });
-
         initDataBase();
 
     }
@@ -84,9 +83,44 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
     }
 
     protected void initDataBase(){
+
+        //brisanje baze u slucaju testiranja
+        this.deleteDatabase("weather.db");
+
         ContentResolver resolver = getContentResolver();
         Cursor cursor = resolver.query(WeatherProvider.CONTENT_URI,null,"Name=?",new String[]{"Novi Sad"},"Date ASC");
 
+        if(!dataExist(cursor,"11/May/2019")){
+            ContentValues values = new ContentValues();
+            values.put(WeatherDbHelper.COLUMN_DATE,"11/May/2019");
+            values.put(WeatherDbHelper.COLUMN_NAME,"Novi Sad");
+            values.put(WeatherDbHelper.COLUMN_TEMPERATURE,10);
+            values.put(WeatherDbHelper.COLUMN_PREASSURE,1000);
+            values.put(WeatherDbHelper.COLUMN_HUMIDITY,53);
+            values.put(WeatherDbHelper.COLUMN_SUNRISE,"05:00pre podne");
+            values.put(WeatherDbHelper.COLUMN_SUNSET,"08:00popodne");
+            values.put(WeatherDbHelper.COLUMN_WIND_SPEED,4.3);
+            values.put(WeatherDbHelper.COLUMN_WIND_DIRECTION,"N");
+            values.put(WeatherDbHelper.COLUMN_IMAGE_URL, "09d");
+            values.put(WeatherDbHelper.COLUMN_DAY, "subota");
+            resolver.insert(WeatherProvider.CONTENT_URI,values);
+        }
+
+        if(!dataExist(cursor,"12/May/2019")){
+            ContentValues values = new ContentValues();
+            values.put(WeatherDbHelper.COLUMN_DATE,"12/May/2019");
+            values.put(WeatherDbHelper.COLUMN_NAME,"Novi Sad");
+            values.put(WeatherDbHelper.COLUMN_TEMPERATURE,12.3);
+            values.put(WeatherDbHelper.COLUMN_PREASSURE,1029);
+            values.put(WeatherDbHelper.COLUMN_HUMIDITY,75);
+            values.put(WeatherDbHelper.COLUMN_SUNRISE,"05:20pre podne");
+            values.put(WeatherDbHelper.COLUMN_SUNSET,"08:12popodne");
+            values.put(WeatherDbHelper.COLUMN_WIND_SPEED,3.1);
+            values.put(WeatherDbHelper.COLUMN_WIND_DIRECTION,"S");
+            values.put(WeatherDbHelper.COLUMN_IMAGE_URL, "09d");
+            values.put(WeatherDbHelper.COLUMN_DAY, "nedelja");
+            resolver.insert(WeatherProvider.CONTENT_URI,values);
+        }
 
         if(!dataExist(cursor,"13/May/2019")){
             ContentValues values = new ContentValues();
@@ -158,7 +192,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
             resolver.insert(WeatherProvider.CONTENT_URI,values);
         }
 
-        if(!dataExist(cursor,"15/May/2019")){
+        /*if(!dataExist(cursor,"15/May/2019")){
             ContentValues values = new ContentValues();
             values.put(WeatherDbHelper.COLUMN_DATE,"15/May/2019");
             values.put(WeatherDbHelper.COLUMN_NAME,"Belgrade");
@@ -172,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
             values.put(WeatherDbHelper.COLUMN_IMAGE_URL, "10d");
             values.put(WeatherDbHelper.COLUMN_DAY, "sreda");
             resolver.insert(WeatherProvider.CONTENT_URI,values);
-        }
+        }*/
 
 
         cursor.close();

@@ -171,39 +171,56 @@ public class StatisticsActivity extends AppCompatActivity {
         resolver = getContentResolver();
         cursor = resolver.query(WeatherProvider.CONTENT_URI, null, "Name=?",new String[]{city},"Date ASC");
 
-        for(cursor.moveToFirst();!cursor.isAfterLast();cursor.moveToNext()){
-            if(cursor.getString(cursor.getColumnIndex("Day")).equals("ponedeljak")){
-                ponedeljakTemp.setText(Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))));
-                ponedeljakPritisak.setText(Integer.toString(cursor.getInt(cursor.getColumnIndex("Preassure"))));
-                ponedeljakVlaznost.setText(Integer.toString(cursor.getInt(cursor.getColumnIndex("Humidity"))));
-            }else if(cursor.getString(cursor.getColumnIndex("Day")).equals("utorak")){
-                utorakTemp.setText(Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))));
-                utorakPritisak.setText(Integer.toString(cursor.getInt(cursor.getColumnIndex("Preassure"))));
-                utorakVlaznost.setText(Integer.toString(cursor.getInt(cursor.getColumnIndex("Humidity"))));
-            }else if(cursor.getString(cursor.getColumnIndex("Day")).equals("sreda")){
-                sredaTemp.setText(Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))));
-                sredaPritisak.setText(Integer.toString(cursor.getInt(cursor.getColumnIndex("Preassure"))));
-                sredaVlaznost.setText(Integer.toString(cursor.getInt(cursor.getColumnIndex("Humidity"))));
-            }else if(cursor.getString(cursor.getColumnIndex("Day")).equals("četvrtak")){
-                četvrtakTemp.setText(Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))));
-                četvrtakPritisak.setText(Integer.toString(cursor.getInt(cursor.getColumnIndex("Preassure"))));
-                četvrtakVlaznost.setText(Integer.toString(cursor.getInt(cursor.getColumnIndex("Humidity"))));
-            }else if(cursor.getString(cursor.getColumnIndex("Day")).equals("petak")){
-                petakTemp.setText(Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))));
-                petakPritisak.setText(Integer.toString(cursor.getInt(cursor.getColumnIndex("Preassure"))));
-                petakVlaznost.setText(Integer.toString(cursor.getInt(cursor.getColumnIndex("Humidity"))));
-            }else if(cursor.getString(cursor.getColumnIndex("Day")).equals("subota")){
-                subotaTemp.setText(Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))));
-                subotaPritisak.setText(Integer.toString(cursor.getInt(cursor.getColumnIndex("Preassure"))));
-                subotaVlaznost.setText(Integer.toString(cursor.getInt(cursor.getColumnIndex("Humidity"))));
-            }else{
-                nedeljaTemp.setText(Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))));
-                nedeljaPritisak.setText(Integer.toString(cursor.getInt(cursor.getColumnIndex("Preassure"))));
-                nedeljaVlaznost.setText(Integer.toString(cursor.getInt(cursor.getColumnIndex("Humidity"))));
+        if(cursor.getCount()<2){
+            cursor.moveToFirst();
+            printData(cursor);
+        }else{
+            for(cursor.moveToLast();!cursor.isBeforeFirst();cursor.moveToPrevious()){
+                if(cursor.getString(cursor.getColumnIndex("Day")).equals("nedelja")){
+                    break;
+                }else{
+                    printData(cursor);
+                }
             }
         }
 
+        /*or(cursor.moveToFirst();!cursor.isAfterLast();cursor.moveToFirst()){
+            printData(cursor);
+        }*/
+
+        cursor.close();
     }
 
+    private void printData(Cursor cursor){
+        if(cursor.getString(cursor.getColumnIndex("Day")).equals("ponedeljak")){
+            ponedeljakTemp.setText(Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))));
+            ponedeljakPritisak.setText(Integer.toString(cursor.getInt(cursor.getColumnIndex("Preassure"))));
+            ponedeljakVlaznost.setText(Integer.toString(cursor.getInt(cursor.getColumnIndex("Humidity"))));
+        }else if(cursor.getString(cursor.getColumnIndex("Day")).equals("utorak")){
+            utorakTemp.setText(Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))));
+            utorakPritisak.setText(Integer.toString(cursor.getInt(cursor.getColumnIndex("Preassure"))));
+            utorakVlaznost.setText(Integer.toString(cursor.getInt(cursor.getColumnIndex("Humidity"))));
+        }else if(cursor.getString(cursor.getColumnIndex("Day")).equals("sreda")){
+            sredaTemp.setText(Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))));
+            sredaPritisak.setText(Integer.toString(cursor.getInt(cursor.getColumnIndex("Preassure"))));
+            sredaVlaznost.setText(Integer.toString(cursor.getInt(cursor.getColumnIndex("Humidity"))));
+        }else if(cursor.getString(cursor.getColumnIndex("Day")).equals("četvrtak")){
+            četvrtakTemp.setText(Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))));
+            četvrtakPritisak.setText(Integer.toString(cursor.getInt(cursor.getColumnIndex("Preassure"))));
+            četvrtakVlaznost.setText(Integer.toString(cursor.getInt(cursor.getColumnIndex("Humidity"))));
+        }else if(cursor.getString(cursor.getColumnIndex("Day")).equals("petak")){
+            petakTemp.setText(Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))));
+            petakPritisak.setText(Integer.toString(cursor.getInt(cursor.getColumnIndex("Preassure"))));
+            petakVlaznost.setText(Integer.toString(cursor.getInt(cursor.getColumnIndex("Humidity"))));
+        }else if(cursor.getString(cursor.getColumnIndex("Day")).equals("subota")){
+            subotaTemp.setText(Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))));
+            subotaPritisak.setText(Integer.toString(cursor.getInt(cursor.getColumnIndex("Preassure"))));
+            subotaVlaznost.setText(Integer.toString(cursor.getInt(cursor.getColumnIndex("Humidity"))));
+        }else{
+            nedeljaTemp.setText(Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))));
+            nedeljaPritisak.setText(Integer.toString(cursor.getInt(cursor.getColumnIndex("Preassure"))));
+            nedeljaVlaznost.setText(Integer.toString(cursor.getInt(cursor.getColumnIndex("Humidity"))));
+        }
+    }
 
 }
