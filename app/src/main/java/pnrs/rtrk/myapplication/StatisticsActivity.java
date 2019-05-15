@@ -38,71 +38,6 @@ public class StatisticsActivity extends AppCompatActivity {
         date =  bundle.get("date").toString();
 
         cityView = findViewById(R.id.cityText);
-
-        imageEdit = findViewById(R.id.imageEdit);
-        snowImage = findViewById(R.id.snowImage);
-        sunImage = findViewById(R.id.sunImage);
-
-        snowImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ContentResolver resolver = getContentResolver();
-                Cursor cursor = resolver.query(WeatherProvider.CONTENT_URI, null, "Name=?",new String[]{city},"Date ASC");
-
-                String edit = "";
-
-                if(cursor.getCount()<2){
-                    cursor.moveToFirst();
-                    if(cursor.getDouble(cursor.getColumnIndex("Temperature"))<=10.0){
-                        edit += cursor.getString(cursor.getColumnIndex("Day")) + " - ";
-                        edit += Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))) + "\n";
-                    }
-                }else{
-                    for(cursor.moveToLast();!cursor.isBeforeFirst();cursor.moveToPrevious()){
-                        if(cursor.getString(cursor.getColumnIndex("Day")).equals("nedelja")){
-                            break;
-                        }else if(cursor.getDouble(cursor.getColumnIndex("Temperature"))<=10.0){
-                                edit += cursor.getString(cursor.getColumnIndex("Day")) + " - ";
-                                edit += Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))) + "\n";
-                            }
-
-                    }
-                }
-
-                cursor.close();
-                imageEdit.setText(edit);
-            }
-        });
-        sunImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ContentResolver resolver = getContentResolver();
-                Cursor cursor = resolver.query(WeatherProvider.CONTENT_URI, null, "Name=?",new String[]{city},"Date ASC");
-
-                String edit = "";
-
-                if(cursor.getCount()<2){
-                    cursor.moveToFirst();
-                    if(cursor.getDouble(cursor.getColumnIndex("Temperature"))>=10.0){
-                        edit += cursor.getString(cursor.getColumnIndex("Day")) + " - ";
-                        edit += Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))) + "\n";
-                    }
-                }else{
-                    for(cursor.moveToLast();!cursor.isBeforeFirst();cursor.moveToPrevious()){
-                        if(cursor.getString(cursor.getColumnIndex("Day")).equals("nedelja")){
-                            break;
-                        }else if(cursor.getDouble(cursor.getColumnIndex("Temperature"))>=10.0){
-                                edit += cursor.getString(cursor.getColumnIndex("Day")) + " - ";
-                                edit += Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))) + "\n";
-                            }
-                    }
-                }
-
-                cursor.close();
-                imageEdit.setText(edit);
-            }
-        });
-
         cityView.setText(city);
 
         minDan = findViewById(R.id.minDan);
@@ -233,6 +168,110 @@ public class StatisticsActivity extends AppCompatActivity {
 
         cursor.close();
 
+        imageEdit = findViewById(R.id.imageEdit);
+        snowImage = findViewById(R.id.snowImage);
+        sunImage = findViewById(R.id.sunImage);
+
+        snowImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*ContentResolver resolver = getContentResolver();
+                Cursor cursor = resolver.query(WeatherProvider.CONTENT_URI, null, "Name=?",new String[]{city},"Date ASC");
+
+                String edit = "";
+
+                if(cursor.getCount()<2){
+                    cursor.moveToFirst();
+                    if(cursor.getDouble(cursor.getColumnIndex("Temperature"))<=10.0){
+                        edit += cursor.getString(cursor.getColumnIndex("Day")) + " - ";
+                        edit += Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))) + "\n";
+                    }
+                }else{
+                    for(cursor.moveToLast();!cursor.isBeforeFirst();cursor.moveToPrevious()){
+                        if(cursor.getString(cursor.getColumnIndex("Day")).equals("nedelja")){
+                            break;
+                        }else if(cursor.getDouble(cursor.getColumnIndex("Temperature"))<=10.0){
+                            edit += cursor.getString(cursor.getColumnIndex("Day")) + " - ";
+                            edit += Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))) + "\n";
+                        }
+
+                    }
+                }
+
+                cursor.close();
+                imageEdit.setText(edit);*/
+
+                ContentResolver resolver = getContentResolver();
+                Cursor cursor = resolver.query(WeatherProvider.CONTENT_URI, null, "Name=?",new String[]{city},"Date ASC");
+
+                setVisibility();
+
+                if(cursor.getCount()<2){
+                    cursor.moveToFirst();
+                    if(cursor.getDouble(cursor.getColumnIndex("Temperature"))>=10.0){
+                        setInvisibility(cursor);
+                    }
+                }else{
+                    for(cursor.moveToLast();!cursor.isBeforeFirst();cursor.moveToPrevious()){
+                        if(cursor.getString(cursor.getColumnIndex("Day")).equals("nedelja")){
+                            break;
+                        }else if(cursor.getDouble(cursor.getColumnIndex("Temperature"))>=10.0){
+                            setInvisibility(cursor);
+                        }
+                    }
+                }
+            }
+        });
+
+        sunImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*ContentResolver resolver = getContentResolver();
+                Cursor cursor = resolver.query(WeatherProvider.CONTENT_URI, null, "Name=?",new String[]{city},"Date ASC");
+
+                String edit = "";
+
+                if(cursor.getCount()<2){
+                    cursor.moveToFirst();
+                    if(cursor.getDouble(cursor.getColumnIndex("Temperature"))>=10.0){
+                        edit += cursor.getString(cursor.getColumnIndex("Day")) + " - ";
+                        edit += Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))) + "\n";
+                    }
+                }else{
+                    for(cursor.moveToLast();!cursor.isBeforeFirst();cursor.moveToPrevious()){
+                        if(cursor.getString(cursor.getColumnIndex("Day")).equals("nedelja")){
+                            break;
+                        }else if(cursor.getDouble(cursor.getColumnIndex("Temperature"))>=10.0){
+                            edit += cursor.getString(cursor.getColumnIndex("Day")) + " - ";
+                            edit += Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))) + "\n";
+                        }
+                    }
+                }
+
+                cursor.close();
+                imageEdit.setText(edit);*/
+
+                ContentResolver resolver = getContentResolver();
+                Cursor cursor = resolver.query(WeatherProvider.CONTENT_URI, null, "Name=?",new String[]{city},"Date ASC");
+
+                setVisibility();
+
+                if(cursor.getCount()<2){
+                    cursor.moveToFirst();
+                    if(cursor.getDouble(cursor.getColumnIndex("Temperature"))<=10.0){
+                        setInvisibility(cursor);
+                    }
+                }else{
+                    for(cursor.moveToLast();!cursor.isBeforeFirst();cursor.moveToPrevious()){
+                        if(cursor.getString(cursor.getColumnIndex("Day")).equals("nedelja")){
+                            break;
+                        }else if(cursor.getDouble(cursor.getColumnIndex("Temperature"))<=10.0){
+                            setInvisibility(cursor);
+                        }
+                    }
+                }
+            }
+        });
     }
 
     private void printData(Cursor cursor){
@@ -264,6 +303,62 @@ public class StatisticsActivity extends AppCompatActivity {
             nedeljaTemp.setText(Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))));
             nedeljaPritisak.setText(Integer.toString(cursor.getInt(cursor.getColumnIndex("Preassure"))));
             nedeljaVlaznost.setText(Integer.toString(cursor.getInt(cursor.getColumnIndex("Humidity"))));
+        }
+    }
+
+    private void setVisibility(){
+        ponedeljakTemp.setVisibility(View.VISIBLE);
+        ponedeljakPritisak.setVisibility(View.VISIBLE);
+        ponedeljakVlaznost.setVisibility(View.VISIBLE);
+        utorakTemp.setVisibility(View.VISIBLE);
+        utorakPritisak.setVisibility(View.VISIBLE);
+        utorakVlaznost.setVisibility(View.VISIBLE);
+        sredaTemp.setVisibility(View.VISIBLE);
+        sredaPritisak.setVisibility(View.VISIBLE);
+        sredaVlaznost.setVisibility(View.VISIBLE);
+        četvrtakTemp.setVisibility(View.VISIBLE);
+        četvrtakPritisak.setVisibility(View.VISIBLE);
+        četvrtakVlaznost.setVisibility(View.VISIBLE);
+        petakTemp.setVisibility(View.VISIBLE);
+        petakPritisak.setVisibility(View.VISIBLE);
+        petakVlaznost.setVisibility(View.VISIBLE);
+        subotaTemp.setVisibility(View.VISIBLE);
+        subotaPritisak.setVisibility(View.VISIBLE);
+        subotaVlaznost.setVisibility(View.VISIBLE);
+        nedeljaTemp.setVisibility(View.VISIBLE);
+        nedeljaPritisak.setVisibility(View.VISIBLE);
+        nedeljaVlaznost.setVisibility(View.VISIBLE);
+    }
+
+    private void setInvisibility(Cursor cursor){
+        if(cursor.getString(cursor.getColumnIndex("Day")).equals("ponedeljak")){
+            ponedeljakTemp.setVisibility(View.INVISIBLE);
+            ponedeljakPritisak.setVisibility(View.INVISIBLE);
+            ponedeljakVlaznost.setVisibility(View.INVISIBLE);
+        }else if(cursor.getString(cursor.getColumnIndex("Day")).equals("utorak")){
+            utorakTemp.setVisibility(View.INVISIBLE);
+            utorakPritisak.setVisibility(View.INVISIBLE);
+            utorakVlaznost.setVisibility(View.INVISIBLE);
+        }else if(cursor.getString(cursor.getColumnIndex("Day")).equals("sreda")){
+            sredaTemp.setVisibility(View.INVISIBLE);
+            sredaPritisak.setVisibility(View.INVISIBLE);
+            sredaVlaznost.setVisibility(View.INVISIBLE);
+        }else if(cursor.getString(cursor.getColumnIndex("Day")).equals("četvrtak")){
+            četvrtakTemp.setVisibility(View.INVISIBLE);
+            četvrtakPritisak.setVisibility(View.INVISIBLE);
+            četvrtakVlaznost.setVisibility(View.INVISIBLE);
+        }else if(cursor.getString(cursor.getColumnIndex("Day")).equals("petak")){
+            petakTemp.setVisibility(View.INVISIBLE);
+            petakPritisak.setVisibility(View.INVISIBLE);
+            petakVlaznost.setVisibility(View.INVISIBLE);
+        }else if(cursor.getString(cursor.getColumnIndex("Day")).equals("subota")){
+            subotaTemp.setVisibility(View.INVISIBLE);
+            subotaPritisak.setVisibility(View.INVISIBLE);
+            subotaVlaznost.setVisibility(View.INVISIBLE);
+        }else{
+            nedeljaTemp.setVisibility(View.INVISIBLE);
+            nedeljaPritisak.setVisibility(View.INVISIBLE);
+            nedeljaVlaznost.setVisibility(View.INVISIBLE);
         }
     }
 
