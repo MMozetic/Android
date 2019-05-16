@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,6 +27,7 @@ public class StatisticsActivity extends AppCompatActivity {
 
     private ImageView snowImage, sunImage;
     private Cursor cursor;
+    private Button vlaznost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,31 +179,6 @@ public class StatisticsActivity extends AppCompatActivity {
         snowImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*ContentResolver resolver = getContentResolver();
-                Cursor cursor = resolver.query(WeatherProvider.CONTENT_URI, null, "Name=?",new String[]{city},"Date ASC");
-
-                String edit = "";
-
-                if(cursor.getCount()<2){
-                    cursor.moveToFirst();
-                    if(cursor.getDouble(cursor.getColumnIndex("Temperature"))<=10.0){
-                        edit += cursor.getString(cursor.getColumnIndex("Day")) + " - ";
-                        edit += Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))) + "\n";
-                    }
-                }else{
-                    for(cursor.moveToLast();!cursor.isBeforeFirst();cursor.moveToPrevious()){
-                        if(cursor.getString(cursor.getColumnIndex("Day")).equals("nedelja")){
-                            break;
-                        }else if(cursor.getDouble(cursor.getColumnIndex("Temperature"))<=10.0){
-                            edit += cursor.getString(cursor.getColumnIndex("Day")) + " - ";
-                            edit += Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))) + "\n";
-                        }
-
-                    }
-                }
-
-                cursor.close();
-                imageEdit.setText(edit);*/
 
                 ContentResolver resolver = getContentResolver();
                 Cursor cursor = resolver.query(WeatherProvider.CONTENT_URI, null, "Name=?",new String[]{city},"Date ASC");
@@ -228,30 +205,6 @@ public class StatisticsActivity extends AppCompatActivity {
         sunImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*ContentResolver resolver = getContentResolver();
-                Cursor cursor = resolver.query(WeatherProvider.CONTENT_URI, null, "Name=?",new String[]{city},"Date ASC");
-
-                String edit = "";
-
-                if(cursor.getCount()<2){
-                    cursor.moveToFirst();
-                    if(cursor.getDouble(cursor.getColumnIndex("Temperature"))>=10.0){
-                        edit += cursor.getString(cursor.getColumnIndex("Day")) + " - ";
-                        edit += Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))) + "\n";
-                    }
-                }else{
-                    for(cursor.moveToLast();!cursor.isBeforeFirst();cursor.moveToPrevious()){
-                        if(cursor.getString(cursor.getColumnIndex("Day")).equals("nedelja")){
-                            break;
-                        }else if(cursor.getDouble(cursor.getColumnIndex("Temperature"))>=10.0){
-                            edit += cursor.getString(cursor.getColumnIndex("Day")) + " - ";
-                            edit += Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))) + "\n";
-                        }
-                    }
-                }
-
-                cursor.close();
-                imageEdit.setText(edit);*/
 
                 ContentResolver resolver = getContentResolver();
                 Cursor cursor = resolver.query(WeatherProvider.CONTENT_URI, null, "Name=?",new String[]{city},"Date ASC");
@@ -274,6 +227,33 @@ public class StatisticsActivity extends AppCompatActivity {
                 }
             }
         });
+
+        vlaznost = findViewById(R.id.vlaznostBtn);
+        vlaznost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ContentResolver resolver = getContentResolver();
+                Cursor cursor = resolver.query(WeatherProvider.CONTENT_URI, null, "Name=?",new String[]{city},"Date ASC");
+
+                setVisibility();
+
+                if(cursor.getCount()<2){
+                    cursor.moveToFirst();
+                    if(cursor.getDouble(cursor.getColumnIndex("Humidity"))<=60.0){
+                        setInvisibility(cursor);
+                    }
+                }else{
+                    for(cursor.moveToLast();!cursor.isBeforeFirst();cursor.moveToPrevious()){
+                        if(cursor.getString(cursor.getColumnIndex("Day")).equals("nedelja")){
+                            break;
+                        }else if(cursor.getDouble(cursor.getColumnIndex("Humidity"))<=60.0){
+                            setInvisibility(cursor);
+                        }
+                    }
+                }
+            }
+        });
+
     }
 
     private void printData(Cursor cursor){

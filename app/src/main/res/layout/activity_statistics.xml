@@ -505,6 +505,14 @@
             android:src="@drawable/ic_sun"
             android:id="@+id/sunImage"/>
 
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:fontFamily="@string/fontButton"
+            android:id="@+id/vlaznostBtn"
+            android:text="Vlažnost >60%"/>
+
     </LinearLayout>
 
     <TextView

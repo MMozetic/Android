@@ -134,7 +134,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
             windSpeed.setText(getString(R.string.wind1Json)+ " "  + Double.toString(cursor.getDouble(cursor.getColumnIndex("WindSpeed")))+ " m/s");
             windDir.setText(getString(R.string.wind2Json)+ " "  + cursor.getString(cursor.getColumnIndex("WindDirection")));
             final String iconUrl = "http://openweathermap.org/img/w/" + cursor.getString(cursor.getColumnIndex("ImageUrl")) + ".png";
-            Picasso.with(MyApplication.getAppContext()).load(iconUrl).into(image);
+            Picasso.with(DetailsActivity.this).load(iconUrl).into(image);
         }
 
 
