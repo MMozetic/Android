@@ -25,9 +25,8 @@ public class StatisticsActivity extends AppCompatActivity {
     private TextView ponedeljakTemp,ponedeljakPritisak,ponedeljakVlaznost,utorakTemp,utorakPritisak,utorakVlaznost,sredaPritisak,sredaVlaznost,sredaTemp;
     private TextView četvrtakTemp,četvrtakPritisak,četvrtakVlaznost,petakTemp,petakPritisak,petakVlaznost,subotaTemp,subotaPritisak,subotaVlaznost,nedeljaTemp,nedeljaPritisak,nedeljaVlaznost;
 
-    private ImageView snowImage, sunImage;
+    private ImageView snowImage, sunImage, dropImage;
     private Cursor cursor;
-    private Button vlaznost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,8 +111,6 @@ public class StatisticsActivity extends AppCompatActivity {
         }
 
         cursor.close();
-
-
 
         ponedeljak = findViewById(R.id.ponedeljak);
         ponedeljakTemp = findViewById(R.id.ponedeljakTemp);
@@ -230,6 +227,7 @@ public class StatisticsActivity extends AppCompatActivity {
         imageEdit = findViewById(R.id.imageEdit);
         snowImage = findViewById(R.id.snowImage);
         sunImage = findViewById(R.id.sunImage);
+        dropImage = findViewById(R.id.dropImage);
 
         snowImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -283,8 +281,7 @@ public class StatisticsActivity extends AppCompatActivity {
             }
         });
 
-        vlaznost = findViewById(R.id.vlaznostBtn);
-        vlaznost.setOnClickListener(new View.OnClickListener() {
+        dropImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ContentResolver resolver = getContentResolver();
