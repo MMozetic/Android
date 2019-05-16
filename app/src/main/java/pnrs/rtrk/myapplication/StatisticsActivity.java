@@ -48,7 +48,7 @@ public class StatisticsActivity extends AppCompatActivity {
         maxTemp = findViewById(R.id.maxTemp);
 
         ContentResolver resolver = getContentResolver();
-        cursor = resolver.query(WeatherProvider.CONTENT_URI, null, "Name=?",new String[]{city},"Temperature ASC");
+        /*cursor = resolver.query(WeatherProvider.CONTENT_URI, null, "Name=?",new String[]{city},"Temperature ASC");
         cursor.moveToFirst();
 
         minDan.setText(cursor.getString(cursor.getColumnIndex("Day")));
@@ -58,7 +58,62 @@ public class StatisticsActivity extends AppCompatActivity {
         maxDan.setText(cursor.getString(cursor.getColumnIndex("Day")));
         maxTemp.setText(Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))));
 
+        cursor.close();*/
+
+        double max,min;
+        String minD,minT,maxD,maxT;
+        minD = "";
+        minT = "";
+        maxD = "";
+        maxT = "";
+
+        cursor = resolver.query(WeatherProvider.CONTENT_URI, null, "Name=?",new String[]{city},"Date ASC");
+
+        cursor.moveToLast();
+        max = cursor.getDouble(cursor.getColumnIndex("Temperature"));
+        min = cursor.getDouble(cursor.getColumnIndex("Temperature"));
+
+        if(cursor.getCount()<2){
+            minDan.setText(cursor.getString(cursor.getColumnIndex("Day")));
+            minTemp.setText(Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))));
+            maxDan.setText(cursor.getString(cursor.getColumnIndex("Day")));
+            maxTemp.setText(Double.toString(cursor.getDouble(cursor.getColumnIndex("Temperature"))));
+        }else{
+            for(cursor.moveToLast();!cursor.isBeforeFirst();cursor.moveToPrevious()){
+                if(cursor.getString(cursor.getColumnIndex("Day")).equals("nedelja")){
+                    break;
+                }else{
+                    if(max < cursor.getDouble(cursor.getColumnIndex("Temperature")))
+                        max = cursor.getDouble(cursor.getColumnIndex("Temperature"));
+
+                    if(min > cursor.getDouble(cursor.getColumnIndex("Temperature")))
+                        min = cursor.getDouble(cursor.getColumnIndex("Temperature"));
+                }
+            }
+
+            for(cursor.moveToLast();!cursor.isBeforeFirst();cursor.moveToPrevious()){
+                if(cursor.getString(cursor.getColumnIndex("Day")).equals("nedelja")){
+                    break;
+                }else{
+                    if(cursor.getDouble(cursor.getColumnIndex("Temperature"))==min){
+                        minD += cursor.getString(cursor.getColumnIndex("Day")) + "\n";
+                        minT += Double.toString(min) + "\n";
+                    }
+                    if(cursor.getDouble(cursor.getColumnIndex("Temperature"))==max){
+                        maxD += cursor.getString(cursor.getColumnIndex("Day")) + "\n";
+                        maxT += Double.toString(max) + "\n";
+                    }
+                }
+            }
+            minDan.setText(minD);
+            minTemp.setText(minT);
+            maxDan.setText(maxD);
+            maxTemp.setText(maxT);
+        }
+
         cursor.close();
+
+
 
         ponedeljak = findViewById(R.id.ponedeljak);
         ponedeljakTemp = findViewById(R.id.ponedeljakTemp);

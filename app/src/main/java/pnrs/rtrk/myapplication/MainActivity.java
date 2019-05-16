@@ -84,17 +84,18 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
 
     protected void initDataBase(){
 
-        //brisanje baze u slucaju testiranja
-        this.deleteDatabase("weather.db");
-
         ContentResolver resolver = getContentResolver();
         Cursor cursor = resolver.query(WeatherProvider.CONTENT_URI,null,"Name=?",new String[]{"Novi Sad"},"Date ASC");
+
+        if(cursor.getCount()>365){
+            this.deleteDatabase("weather.db");
+        }
 
         if(!dataExist(cursor,"11/May/2019")){
             ContentValues values = new ContentValues();
             values.put(WeatherDbHelper.COLUMN_DATE,"11/May/2019");
             values.put(WeatherDbHelper.COLUMN_NAME,"Novi Sad");
-            values.put(WeatherDbHelper.COLUMN_TEMPERATURE,9);
+            values.put(WeatherDbHelper.COLUMN_TEMPERATURE,40);
             values.put(WeatherDbHelper.COLUMN_PREASSURE,1000);
             values.put(WeatherDbHelper.COLUMN_HUMIDITY,53);
             values.put(WeatherDbHelper.COLUMN_SUNRISE,"05:00pre podne");
@@ -163,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
             ContentValues values = new ContentValues();
             values.put(WeatherDbHelper.COLUMN_DATE,"13/May/2019");
             values.put(WeatherDbHelper.COLUMN_NAME,"Belgrade");
-            values.put(WeatherDbHelper.COLUMN_TEMPERATURE,11.5);
+            values.put(WeatherDbHelper.COLUMN_TEMPERATURE,8.5);
             values.put(WeatherDbHelper.COLUMN_PREASSURE,1018);
             values.put(WeatherDbHelper.COLUMN_HUMIDITY,61);
             values.put(WeatherDbHelper.COLUMN_SUNRISE,"05:31pre podne");
