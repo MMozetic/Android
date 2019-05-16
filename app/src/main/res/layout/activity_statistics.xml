@@ -113,7 +113,7 @@
                 android:layout_height="match_parent"
                 android:fontFamily="@string/fontText"
                 android:textSize="@dimen/buttonText"
-                android:gravity="center"
+                android:gravity="center|center"
                 android:id="@+id/ponedeljakPritisak" />
 
             <TextView
@@ -122,7 +122,7 @@
                 android:layout_height="match_parent"
                 android:fontFamily="@string/fontText"
                 android:textSize="@dimen/buttonText"
-                android:gravity="center"
+                android:gravity="center|center"
                 android:id="@+id/ponedeljakVlaznost"/>
 
         </LinearLayout>
@@ -160,7 +160,7 @@
                 android:layout_height="match_parent"
                 android:fontFamily="@string/fontText"
                 android:textSize="@dimen/buttonText"
-                android:gravity="center"
+                android:gravity="center|center"
                 android:id="@+id/utorakPritisak" />
 
             <TextView
@@ -169,7 +169,7 @@
                 android:layout_height="match_parent"
                 android:fontFamily="@string/fontText"
                 android:textSize="@dimen/buttonText"
-                android:gravity="center"
+                android:gravity="center|center"
                 android:id="@+id/utorakVlaznost"/>
 
         </LinearLayout>
@@ -206,7 +206,7 @@
                 android:layout_height="match_parent"
                 android:fontFamily="@string/fontText"
                 android:textSize="@dimen/buttonText"
-                android:gravity="center"
+                android:gravity="center|center"
                 android:id="@+id/sredaPritisak" />
 
             <TextView
@@ -215,7 +215,7 @@
                 android:layout_height="match_parent"
                 android:fontFamily="@string/fontText"
                 android:textSize="@dimen/buttonText"
-                android:gravity="center"
+                android:gravity="center|center"
                 android:id="@+id/sredaVlaznost"/>
 
         </LinearLayout>
@@ -252,7 +252,7 @@
                 android:layout_height="match_parent"
                 android:fontFamily="@string/fontText"
                 android:textSize="@dimen/buttonText"
-                android:gravity="center"
+                android:gravity="center|center"
                 android:id="@+id/četvrtakPritisak" />
 
             <TextView
@@ -261,7 +261,7 @@
                 android:layout_height="match_parent"
                 android:fontFamily="@string/fontText"
                 android:textSize="@dimen/buttonText"
-                android:gravity="center"
+                android:gravity="center|center"
                 android:id="@+id/četvrtakVlaznost"/>
 
         </LinearLayout>
@@ -344,7 +344,7 @@
                 android:layout_height="match_parent"
                 android:fontFamily="@string/fontText"
                 android:textSize="@dimen/buttonText"
-                android:gravity="center"
+                android:gravity="center|center"
                 android:id="@+id/subotaPritisak" />
 
             <TextView
@@ -353,7 +353,7 @@
                 android:layout_height="match_parent"
                 android:fontFamily="@string/fontText"
                 android:textSize="@dimen/buttonText"
-                android:gravity="center"
+                android:gravity="center|center"
                 android:id="@+id/subotaVlaznost"/>
 
         </LinearLayout>
@@ -390,7 +390,7 @@
                 android:layout_height="match_parent"
                 android:fontFamily="@string/fontText"
                 android:textSize="@dimen/buttonText"
-                android:gravity="center"
+                android:gravity="center|center"
                 android:id="@+id/nedeljaPritisak" />
 
             <TextView
@@ -399,7 +399,7 @@
                 android:layout_height="match_parent"
                 android:fontFamily="@string/fontText"
                 android:textSize="@dimen/buttonText"
-                android:gravity="center"
+                android:gravity="center|center"
                 android:id="@+id/nedeljaVlaznost"/>
 
         </LinearLayout>

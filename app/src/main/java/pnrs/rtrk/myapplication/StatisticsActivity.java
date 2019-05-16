@@ -120,6 +120,8 @@ public class StatisticsActivity extends AppCompatActivity {
             četvrtakTemp.setTypeface(Typeface.DEFAULT_BOLD);
             četvrtakTemp.setTextSize(15);
             četvrtakPritisak.setTypeface(Typeface.DEFAULT_BOLD);
+            četvrtakPritisak.setTextSize(15);
+            četvrtakVlaznost.setTypeface(Typeface.DEFAULT_BOLD);
             četvrtakVlaznost.setTextSize(15);
         }else if(day.equals("petak")){
             petak.setTypeface(Typeface.DEFAULT_BOLD);
