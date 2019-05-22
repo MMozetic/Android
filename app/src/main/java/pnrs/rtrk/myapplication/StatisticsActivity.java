@@ -1,6 +1,7 @@
 package pnrs.rtrk.myapplication;
 
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;

@@ -122,6 +122,8 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
             if(!cursor.getString(cursor.getColumnIndex("Date")).equals(dateStr)){
                 updateText.setVisibility(View.VISIBLE);
                 updateBtn.setVisibility(View.VISIBLE);
+                Intent intent = new Intent(this, WeatherService.class);
+                stopService(intent);
             }else{
                 updateText.setVisibility(View.INVISIBLE);
                 updateBtn.setVisibility(View.INVISIBLE);

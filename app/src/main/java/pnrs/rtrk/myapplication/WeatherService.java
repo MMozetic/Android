@@ -26,7 +26,7 @@ public class WeatherService extends Service {
 
     public static String BASE_URL = "https://api.openweathermap.org/data/2.5/weather?q=";
     public static String KEY = "&APPID=8a8b70915fd021fff2707ceaef3dceb1&units=metric";
-    public String GET_INFO, city,temp;
+    public String GET_INFO, city, temp;
     private HTTPHelper httpHelper;
 
     @Override
@@ -36,7 +36,6 @@ public class WeatherService extends Service {
         httpHelper = new HTTPHelper();
         mRunnable = new RunnableExample();
         mRunnable.start();
-
     }
 
     @Override
@@ -92,6 +91,27 @@ public class WeatherService extends Service {
 
                         JSONObject temperature = jsonObject.getJSONObject("main");
                         temp = temperature.get("temp").toString();
+
+                        ContentResolver resolver = getContentResolver();
+
+                        Cursor cursor = resolver.query(WeatherProvider.CONTENT_URI,null,"Name=?",new String[]{city},"Date ASC");
+                        cursor.moveToLast();
+                        ContentValues values = new ContentValues();
+
+                        values.put(WeatherDbHelper.COLUMN_DATE, cursor.getString(cursor.getColumnIndex("Date")));
+                        values.put(WeatherDbHelper.COLUMN_NAME, city);
+                        values.put(WeatherDbHelper.COLUMN_TEMPERATURE, Double.parseDouble(temp));
+                        values.put(WeatherDbHelper.COLUMN_PREASSURE, Integer.toString(cursor.getInt(cursor.getColumnIndex("Preassure"))));
+                        values.put(WeatherDbHelper.COLUMN_HUMIDITY, Integer.toString(cursor.getInt(cursor.getColumnIndex("Humidity"))));
+                        values.put(WeatherDbHelper.COLUMN_SUNRISE, cursor.getString(cursor.getColumnIndex("Sunrise")));
+                        values.put(WeatherDbHelper.COLUMN_SUNSET, cursor.getString(cursor.getColumnIndex("Sunset")));
+                        values.put(WeatherDbHelper.COLUMN_WIND_SPEED, Double.toString(cursor.getDouble(cursor.getColumnIndex("WindSpeed"))));
+                        values.put(WeatherDbHelper.COLUMN_WIND_DIRECTION, cursor.getString(cursor.getColumnIndex("WindDirection")));
+                        values.put(WeatherDbHelper.COLUMN_IMAGE_URL, cursor.getString(cursor.getColumnIndex("ImageUrl")));
+                        values.put(WeatherDbHelper.COLUMN_DAY, cursor.getString(cursor.getColumnIndex("Day")));
+
+                        resolver.update(WeatherProvider.CONTENT_URI, values, "Name=? AND Date=?", new String[]{city, cursor.getString(cursor.getColumnIndex("Date"))});
+                        cursor.close();
                     } catch (IOException e) {
                         e.printStackTrace();
                     } catch (JSONException e) {
@@ -112,26 +132,6 @@ public class WeatherService extends Service {
 
             NotificationManager nm = (NotificationManager) WeatherService.this.getSystemService(Context.NOTIFICATION_SERVICE);
             nm.notify(1, b.build());
-
-            ContentResolver resolver = getContentResolver();
-
-            Cursor cursor = resolver.query(WeatherProvider.CONTENT_URI,null,"Name=?",new String[]{city},"Date ASC");
-            cursor.moveToLast();
-            ContentValues values = new ContentValues();
-
-            values.put(WeatherDbHelper.COLUMN_DATE, cursor.getString(cursor.getColumnIndex("Date")));
-            values.put(WeatherDbHelper.COLUMN_NAME, city);
-            values.put(WeatherDbHelper.COLUMN_TEMPERATURE, Double.parseDouble(temp));
-            values.put(WeatherDbHelper.COLUMN_PREASSURE, Integer.toString(cursor.getInt(cursor.getColumnIndex("Preassure"))));
-            values.put(WeatherDbHelper.COLUMN_HUMIDITY, Integer.toString(cursor.getInt(cursor.getColumnIndex("Humidity"))));
-            values.put(WeatherDbHelper.COLUMN_SUNRISE, cursor.getString(cursor.getColumnIndex("Sunrise")));
-            values.put(WeatherDbHelper.COLUMN_SUNSET, cursor.getString(cursor.getColumnIndex("Sunset")));
-            values.put(WeatherDbHelper.COLUMN_WIND_SPEED, Double.toString(cursor.getDouble(cursor.getColumnIndex("WindSpeed"))));
-            values.put(WeatherDbHelper.COLUMN_WIND_DIRECTION, cursor.getString(cursor.getColumnIndex("WindDirection")));
-            values.put(WeatherDbHelper.COLUMN_IMAGE_URL, cursor.getString(cursor.getColumnIndex("ImageUrl")));
-            values.put(WeatherDbHelper.COLUMN_DAY, cursor.getString(cursor.getColumnIndex("Day")));
-
-            resolver.update(WeatherProvider.CONTENT_URI, values, "Name=? AND Date=?", new String[]{city, cursor.getString(cursor.getColumnIndex("Date"))});
 
             Log.d(LOG_TAG, "Hello from Runnable " + city);
             mHandler.postDelayed(this, PERIOD);
