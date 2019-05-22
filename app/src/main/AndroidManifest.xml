@@ -12,7 +12,12 @@
         android:roundIcon="@drawable/ic_umbrella"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".StatisticsActivity"></activity>
+        <service
+            android:name=".WeatherService"
+            android:enabled="true"
+            android:exported="true"></service>
+
+        <activity android:name=".StatisticsActivity" />
 
         <provider
             android:name=".WeatherProvider"

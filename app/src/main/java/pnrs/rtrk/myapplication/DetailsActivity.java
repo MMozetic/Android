@@ -114,6 +114,9 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
             updateText.setVisibility(View.INVISIBLE);
             updateBtn.setVisibility(View.INVISIBLE);
             getHTTPData();
+            Intent intent = new Intent(this, WeatherService.class);
+            intent.putExtra("town", city);
+            startService(intent);
         }else{
             cursor.moveToLast();
             if(!cursor.getString(cursor.getColumnIndex("Date")).equals(dateStr)){
@@ -122,6 +125,9 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
             }else{
                 updateText.setVisibility(View.INVISIBLE);
                 updateBtn.setVisibility(View.INVISIBLE);
+                Intent intent = new Intent(this, WeatherService.class);
+                intent.putExtra("town", city);
+                startService(intent);
             }
 
             day.setText(getString(R.string.dateText) + " " + cursor.getString(cursor.getColumnIndex("Date")));
@@ -162,6 +168,8 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
 
         statsButton = findViewById(R.id.statisticsBtn);
         statsButton.setOnClickListener(this);
+
+
     }
 
     @Override
@@ -197,6 +205,10 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
                 updateText.setVisibility(View.INVISIBLE);
                 updateBtn.setVisibility(View.INVISIBLE);
                 updateBtn.setChecked(false);
+
+                Intent intent = new Intent(this, WeatherService.class);
+                intent.putExtra("town", city);
+                startService(intent);
 
                 break;
 

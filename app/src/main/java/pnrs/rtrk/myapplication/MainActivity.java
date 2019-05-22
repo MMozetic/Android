@@ -2,6 +2,7 @@ package pnrs.rtrk.myapplication;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,7 +15,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements  View.OnClickListener {
 
-    private Button showDetails;
+    private Button showDetails,stopService;
     private EditText town;
     private ListView list;
     private CustomAdapter adapter;
@@ -49,6 +50,8 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         });
         initDataBase();
 
+        stopService = findViewById(R.id.stopService);
+        stopService.setOnClickListener(this);
     }
 
     @Override
@@ -67,6 +70,10 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                 }else{
                     Toast.makeText(this, getString(R.string.toastWarning2),Toast.LENGTH_SHORT).show();
                 }
+                break;
+            case R.id.stopService:
+                Intent intent = new Intent(this, WeatherService.class);
+                stopService(intent);
                 break;
             default:
                 break;
