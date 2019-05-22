@@ -3,8 +3,10 @@ package pnrs.rtrk.myapplication;
 import android.app.NotificationManager;
 import android.app.Service;
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -113,7 +115,23 @@ public class WeatherService extends Service {
 
             ContentResolver resolver = getContentResolver();
 
-            //dodati kod
+            Cursor cursor = resolver.query(WeatherProvider.CONTENT_URI,null,"Name=?",new String[]{city},"Date ASC");
+            cursor.moveToLast();
+            ContentValues values = new ContentValues();
+
+            values.put(WeatherDbHelper.COLUMN_DATE, cursor.getString(cursor.getColumnIndex("Date")));
+            values.put(WeatherDbHelper.COLUMN_NAME, city);
+            values.put(WeatherDbHelper.COLUMN_TEMPERATURE, Double.parseDouble(temp));
+            values.put(WeatherDbHelper.COLUMN_PREASSURE, Integer.toString(cursor.getInt(cursor.getColumnIndex("Preassure"))));
+            values.put(WeatherDbHelper.COLUMN_HUMIDITY, Integer.toString(cursor.getInt(cursor.getColumnIndex("Humidity"))));
+            values.put(WeatherDbHelper.COLUMN_SUNRISE, cursor.getString(cursor.getColumnIndex("Sunrise")));
+            values.put(WeatherDbHelper.COLUMN_SUNSET, cursor.getString(cursor.getColumnIndex("Sunset")));
+            values.put(WeatherDbHelper.COLUMN_WIND_SPEED, Double.toString(cursor.getDouble(cursor.getColumnIndex("WindSpeed"))));
+            values.put(WeatherDbHelper.COLUMN_WIND_DIRECTION, cursor.getString(cursor.getColumnIndex("WindDirection")));
+            values.put(WeatherDbHelper.COLUMN_IMAGE_URL, cursor.getString(cursor.getColumnIndex("ImageUrl")));
+            values.put(WeatherDbHelper.COLUMN_DAY, cursor.getString(cursor.getColumnIndex("Day")));
+
+            resolver.update(WeatherProvider.CONTENT_URI, values, "Name=? AND Date=?", new String[]{city, cursor.getString(cursor.getColumnIndex("Date"))});
 
             Log.d(LOG_TAG, "Hello from Runnable " + city);
             mHandler.postDelayed(this, PERIOD);
