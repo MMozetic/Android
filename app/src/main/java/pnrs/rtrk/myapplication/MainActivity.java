@@ -87,13 +87,11 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         ContentResolver resolver = getContentResolver();
         Cursor cursor = resolver.query(WeatherProvider.CONTENT_URI,null,"Name=?",new String[]{"Novi Sad"},"Date ASC");
 
-        if(cursor.getCount()>365){
-            this.deleteDatabase("weather.db");
-        }
+        this.deleteDatabase("weather.db");
 
-        if(!dataExist(cursor,"11/May/2019")){
+        if(!dataExist(cursor,"18/May/2019")){
             ContentValues values = new ContentValues();
-            values.put(WeatherDbHelper.COLUMN_DATE,"11/May/2019");
+            values.put(WeatherDbHelper.COLUMN_DATE,"18/May/2019");
             values.put(WeatherDbHelper.COLUMN_NAME,"Novi Sad");
             values.put(WeatherDbHelper.COLUMN_TEMPERATURE,40);
             values.put(WeatherDbHelper.COLUMN_PREASSURE,1000);
@@ -107,9 +105,9 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
             resolver.insert(WeatherProvider.CONTENT_URI,values);
         }
 
-        if(!dataExist(cursor,"12/May/2019")){
+        if(!dataExist(cursor,"19/May/2019")){
             ContentValues values = new ContentValues();
-            values.put(WeatherDbHelper.COLUMN_DATE,"12/May/2019");
+            values.put(WeatherDbHelper.COLUMN_DATE,"19/May/2019");
             values.put(WeatherDbHelper.COLUMN_NAME,"Novi Sad");
             values.put(WeatherDbHelper.COLUMN_TEMPERATURE,12.3);
             values.put(WeatherDbHelper.COLUMN_PREASSURE,1029);
@@ -123,9 +121,9 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
             resolver.insert(WeatherProvider.CONTENT_URI,values);
         }
 
-        if(!dataExist(cursor,"13/May/2019")){
+        if(!dataExist(cursor,"20/May/2019")){
             ContentValues values = new ContentValues();
-            values.put(WeatherDbHelper.COLUMN_DATE,"13/May/2019");
+            values.put(WeatherDbHelper.COLUMN_DATE,"20/May/2019");
             values.put(WeatherDbHelper.COLUMN_NAME,"Novi Sad");
             values.put(WeatherDbHelper.COLUMN_TEMPERATURE,15.5);
             values.put(WeatherDbHelper.COLUMN_PREASSURE,1033);
@@ -139,9 +137,9 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
             resolver.insert(WeatherProvider.CONTENT_URI,values);
         }
 
-        if(!dataExist(cursor,"14/May/2019")){
+        if(!dataExist(cursor,"21/May/2019")){
             ContentValues values = new ContentValues();
-            values.put(WeatherDbHelper.COLUMN_DATE,"14/May/2019");
+            values.put(WeatherDbHelper.COLUMN_DATE,"21/May/2019");
             values.put(WeatherDbHelper.COLUMN_NAME,"Novi Sad");
             values.put(WeatherDbHelper.COLUMN_TEMPERATURE,7.7);
             values.put(WeatherDbHelper.COLUMN_PREASSURE,1042);
@@ -160,9 +158,9 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
 
         cursor = resolver.query(WeatherProvider.CONTENT_URI,null,"Name=?",new String[]{"Belgrade"},"Date ASC");
 
-        if(!dataExist(cursor,"13/May/2019")){
+        if(!dataExist(cursor,"20/May/2019")){
             ContentValues values = new ContentValues();
-            values.put(WeatherDbHelper.COLUMN_DATE,"13/May/2019");
+            values.put(WeatherDbHelper.COLUMN_DATE,"20/May/2019");
             values.put(WeatherDbHelper.COLUMN_NAME,"Belgrade");
             values.put(WeatherDbHelper.COLUMN_TEMPERATURE,8.5);
             values.put(WeatherDbHelper.COLUMN_PREASSURE,1018);
@@ -176,9 +174,9 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
             resolver.insert(WeatherProvider.CONTENT_URI,values);
         }
 
-        if(!dataExist(cursor,"14/May/2019")){
+        if(!dataExist(cursor,"21/May/2019")){
             ContentValues values = new ContentValues();
-            values.put(WeatherDbHelper.COLUMN_DATE,"14/May/2019");
+            values.put(WeatherDbHelper.COLUMN_DATE,"21/May/2019");
             values.put(WeatherDbHelper.COLUMN_NAME,"Belgrade");
             values.put(WeatherDbHelper.COLUMN_TEMPERATURE,8.5);
             values.put(WeatherDbHelper.COLUMN_PREASSURE,1001);
@@ -191,23 +189,6 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
             values.put(WeatherDbHelper.COLUMN_DAY, "utorak");
             resolver.insert(WeatherProvider.CONTENT_URI,values);
         }
-
-        if(!dataExist(cursor,"15/May/2019")){
-            ContentValues values = new ContentValues();
-            values.put(WeatherDbHelper.COLUMN_DATE,"15/May/2019");
-            values.put(WeatherDbHelper.COLUMN_NAME,"Belgrade");
-            values.put(WeatherDbHelper.COLUMN_TEMPERATURE,9.6);
-            values.put(WeatherDbHelper.COLUMN_PREASSURE,1015);
-            values.put(WeatherDbHelper.COLUMN_HUMIDITY,73);
-            values.put(WeatherDbHelper.COLUMN_SUNRISE,"05:50pre podne");
-            values.put(WeatherDbHelper.COLUMN_SUNSET,"08:22popodne");
-            values.put(WeatherDbHelper.COLUMN_WIND_SPEED,2.1);
-            values.put(WeatherDbHelper.COLUMN_WIND_DIRECTION,"W");
-            values.put(WeatherDbHelper.COLUMN_IMAGE_URL, "10d");
-            values.put(WeatherDbHelper.COLUMN_DAY, "sreda");
-            resolver.insert(WeatherProvider.CONTENT_URI,values);
-        }
-
 
         cursor.close();
 
