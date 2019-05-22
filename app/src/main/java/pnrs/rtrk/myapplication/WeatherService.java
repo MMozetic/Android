@@ -2,6 +2,7 @@ package pnrs.rtrk.myapplication;
 
 import android.app.NotificationManager;
 import android.app.Service;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -110,7 +111,11 @@ public class WeatherService extends Service {
             NotificationManager nm = (NotificationManager) WeatherService.this.getSystemService(Context.NOTIFICATION_SERVICE);
             nm.notify(1, b.build());
 
-            Log.d(LOG_TAG, "Hello from Runnable" + city);
+            ContentResolver resolver = getContentResolver();
+
+            //dodati kod
+
+            Log.d(LOG_TAG, "Hello from Runnable " + city);
             mHandler.postDelayed(this, PERIOD);
         }
     }
