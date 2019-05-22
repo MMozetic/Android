@@ -21,7 +21,7 @@ import java.io.IOException;
 
 public class WeatherService extends Service {
     private static final String LOG_TAG = "ExampleService";
-    private static final long PERIOD = 3000L;
+    private static final long PERIOD = 10000L;
     private RunnableExample mRunnable;
 
     public static String BASE_URL = "https://api.openweathermap.org/data/2.5/weather?q=";
@@ -119,6 +119,8 @@ public class WeatherService extends Service {
                     }
                 }
             }).start();
+
+            for(long i = 0; i < 10000000; i++);
 
             NotificationCompat.Builder b = new NotificationCompat.Builder(WeatherService.this);
             b.setAutoCancel(true)
