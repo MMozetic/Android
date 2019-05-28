@@ -34,6 +34,7 @@
     <string name="sunsetText2">popodne</string>
     <string name="statsBtn">Statistika</string>
     <string name="poslednja_nedelja">Poslednja nedelja:</string>
+    <string name="zaustavi_servis">zaustavi servis</string>
 
     <string-array name="formats">
         <item>°C</item>

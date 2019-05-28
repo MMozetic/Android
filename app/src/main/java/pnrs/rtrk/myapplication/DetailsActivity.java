@@ -1,9 +1,13 @@
 package pnrs.rtrk.myapplication;
 
+import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.database.Cursor;
+import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,7 +38,7 @@ import pnrs.rtrk.MyApplication;
 
 public class DetailsActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private Button tempButton, sunButton, windButton, statsButton;
+    private Button tempButton, sunButton, windButton, statsButton, stopService;
     private LinearLayout tempLayout, sunLayout, windLayout;
     private String temp1,temp2,temp3,sun1,sun2,wind1,wind2, city, dateStr;
     private TextView tmp1,tmp2,tmp3,sunRise,sunSet,windSpeed,windDir, updateText,day;
@@ -47,6 +51,25 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
     public String GET_INFO;
     private HTTPHelper httpHelper;
     private Spinner format;
+    private WeatherService mService;
+    boolean mBound = false;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent intent = new Intent(this,WeatherService.class);
+        intent.putExtra("town",city);
+        bindService(intent,connection, Context.BIND_AUTO_CREATE);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(mBound == true){
+            unbindService(connection);
+        }
+        mBound = false;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,22 +137,14 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
             updateText.setVisibility(View.INVISIBLE);
             updateBtn.setVisibility(View.INVISIBLE);
             getHTTPData();
-            Intent intent = new Intent(this, WeatherService.class);
-            intent.putExtra("town", city);
-            startService(intent);
         }else{
             cursor.moveToLast();
             if(!cursor.getString(cursor.getColumnIndex("Date")).equals(dateStr)){
                 updateText.setVisibility(View.VISIBLE);
                 updateBtn.setVisibility(View.VISIBLE);
-                Intent intent = new Intent(this, WeatherService.class);
-                stopService(intent);
             }else{
                 updateText.setVisibility(View.INVISIBLE);
                 updateBtn.setVisibility(View.INVISIBLE);
-                Intent intent = new Intent(this, WeatherService.class);
-                intent.putExtra("town", city);
-                startService(intent);
             }
 
             day.setText(getString(R.string.dateText) + " " + cursor.getString(cursor.getColumnIndex("Date")));
@@ -157,7 +172,8 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
                         break;
                     default:
                         String[] array = temp1.split(" ");
-                        tmp1.setText(getString(R.string.tempJson) + " " + Double.toString(Double.parseDouble(array[1])*9/5+32));
+                        MyNDK myNDK = new MyNDK();
+                        tmp1.setText(getString(R.string.tempJson) + " " + Double.toString(myNDK.convert(Double.parseDouble(array[1]),1)));
                         break;
                 }
             }
@@ -171,6 +187,8 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         statsButton = findViewById(R.id.statisticsBtn);
         statsButton.setOnClickListener(this);
 
+        stopService = findViewById(R.id.stopService);
+        stopService.setOnClickListener(this);
 
     }
 
@@ -208,10 +226,6 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
                 updateBtn.setVisibility(View.INVISIBLE);
                 updateBtn.setChecked(false);
 
-                Intent intent = new Intent(this, WeatherService.class);
-                intent.putExtra("town", city);
-                startService(intent);
-
                 break;
 
             case R.id.statisticsBtn:
@@ -223,6 +237,12 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
 
                 break;
 
+            case R.id.stopService:
+                Intent intentService = new Intent(this,WeatherService.class);
+                unbindService(connection);
+                stopService(intentService);
+                mBound = false;
+                break;
             default:
         }
     }
@@ -348,4 +368,18 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         }
         return false;
     }
+
+    private ServiceConnection connection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            WeatherService.LocalBinder binder = (WeatherService.LocalBinder) service;
+            mService = binder.getService();
+            mBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            mBound = false;
+        }
+    };
 }

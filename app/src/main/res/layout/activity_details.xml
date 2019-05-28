@@ -66,6 +66,15 @@
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.5"
+        android:id="@+id/stopService"
+        android:text="@string/zaustavi_servis"
+        android:fontFamily="@string/fontButton"
+        android:textSize="@dimen/buttonText"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.5"
         android:id="@+id/statisticsBtn"
         android:text="@string/statsBtn"
         android:fontFamily="@string/fontButton"

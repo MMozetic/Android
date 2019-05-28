@@ -7,6 +7,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Binder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -21,7 +22,7 @@ import java.io.IOException;
 
 public class WeatherService extends Service {
     private static final String LOG_TAG = "ExampleService";
-    private static final long PERIOD = 10000L;
+    private static final long PERIOD = 5000L;
     private RunnableExample mRunnable;
 
     public static String BASE_URL = "https://api.openweathermap.org/data/2.5/weather?q=";
@@ -45,16 +46,25 @@ public class WeatherService extends Service {
         mRunnable.stop();
     }
 
-    @Override
+    /*@Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         city = intent.getStringExtra("town");
         return super.onStartCommand(intent, flags, startId);
+    }*/
+
+    public class LocalBinder extends Binder{
+        WeatherService getService(){
+            return WeatherService.this;
+        }
     }
 
     @Override
     public IBinder onBind(Intent intent) {
         // TODO: Return the communication channel to the service.
-        throw new UnsupportedOperationException("Not yet implemented");
+        //throw new UnsupportedOperationException("Not yet implemented");
+        IBinder binder = new LocalBinder();
+        city = intent.getStringExtra("town");
+        return  binder;
     }
 
 
